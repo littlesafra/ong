@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
   poblacion varchar(15) NOT NULL,
   cp varchar(15) NOT NULL,
   email varchar(15) NOT NULL,
-  UNIQUE KEY passwordUsuarios (password),
+  donanete boolean,
+  UNIQUE KEY passwordUsuarios (username),
   PRIMARY KEY (id)
 );
 
@@ -45,6 +46,8 @@ DROP TABLE IF EXISTS donaciones;
 CREATE TABLE IF NOT EXISTS donaciones (
   id tinyint(3) unsigned NOT NULL,
   usuario_id tinyint(3) unsigned NOT NULL,
+  conaciones_cantidad integer unsigned NOT NULL,
+  donaciones_precio integer unsigned NOT NULL,
   KEY usuario_idDonaciones (usuario_id),
   PRIMARY KEY (id),
   CONSTRAINT usuario_idDonaciones FOREIGN KEY (usuario_id) REFERENCES usuarios (id)
@@ -54,6 +57,10 @@ DROP TABLE IF EXISTS productos;
 CREATE TABLE IF NOT EXISTS productos (
   id tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   categoria_id tinyint(3) unsigned NOT NULL,
+  nombre varchar(15) NOT NULL,
+  precio float NOT NULL,
+  imagen varchar(15),
+  cantidad integer NOT NULL,
   KEY categoria_idProductos (categoria_id),
   PRIMARY KEY (id),
   CONSTRAINT usuario_idProductos FOREIGN KEY (categoria_id) REFERENCES categorias (id)
@@ -66,8 +73,8 @@ CREATE TABLE IF NOT EXISTS donaciones_detalles (
   fecha date NOT NULL,
   total_dinero integer unsigned NOT NULL,
   KEY donacion_idDonaciones_detalles (donacion_id),
-  KEY producto_idDonaciones_detalles (categoria_id),
-  CONSTRAINT donacion_idDonaciones_detalles FOREIGN KEY (donacion_id) REFERENCES rol (id),
+  KEY producto_idDonaciones_detalles (producto_id),
+  CONSTRAINT donacion_idDonaciones_detalles FOREIGN KEY (donacion_id) REFERENCES donaciones (id),
   CONSTRAINT producto_idDonaciones_detalles FOREIGN KEY (producto_id) REFERENCES usuarios (id)
 );
 
@@ -105,17 +112,19 @@ CREATE TABLE IF NOT EXISTS envios (
   destino varchar(15) NOT NULL,
   KEY destino_envios (destino),
   PRIMARY KEY (id),
-  CONSTRAINT destino_envios FOREIGN KEY (destino) REFERENCES destinos (cp)
+  CONSTRAINT destino_envios
+  FOREIGN KEY (destino) REFERENCES destinos (cp)
 );
 
-DROP TABLE IF EXISTS necesidades_destino;
-CREATE TABLE IF NOT EXISTS necesidades_destino (
+DROP TABLE IF EXISTS necesidades_destinos;
+CREATE TABLE IF NOT EXISTS necesidades_destinos (
   tipo tinyint(3) unsigned NOT NULL,
   destino varchar(15) NOT NULL,
+  cantidad integer NOT NULL,
   KEY tipoNecesidades_destino (tipo),
   KEY destinoNecesidades_destino(destino),
-  CONSTRAINT donacion_idDonaciones_detalles FOREIGN KEY (tipo) REFERENCES categorias (id),
-  CONSTRAINT categoria_idDonaciones_detalles FOREIGN KEY (destino) REFERENCES destinos (cp)
+  CONSTRAINT tipoNecesidades_destino FOREIGN KEY (tipo) REFERENCES categorias (id),
+  CONSTRAINT destinoNecesidades_destino FOREIGN KEY (destino) REFERENCES destinos (cp)
 );
 
 DROP TABLE IF EXISTS envios_detalles;
@@ -123,7 +132,7 @@ CREATE TABLE IF NOT EXISTS envios_detalles (
   envio_id tinyint(3) unsigned NOT NULL,
   producto_id tinyint(3) unsigned NOT NULL,
   fecha_entrega date NOT NULL,
-  total_dinero integer unsigned NOT NULL,
+  total_dinero float unsigned NOT NULL,
   KEY envio_idEnvios_detalles (envio_id),
   KEY producto_idEnvios_detalles (producto_id),
   CONSTRAINT envio_idEnvios_detalles FOREIGN KEY (envio_id) REFERENCES envios (id),
