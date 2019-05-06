@@ -162,7 +162,7 @@ header {
     font-size: 17px;
 }
 .header-top .top-social ul li a:hover {
-    color: #ed1556;
+    color: #00a99d;
 }
 .header-top .top-srch-bx{
     float: right;
@@ -231,7 +231,7 @@ header {
     width: 49.5%;
 }
 .form_wrapper_footer input,.form_wrapper_footer a {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     color: #fff;
     border: medium none;
     border-radius: 0;
@@ -292,7 +292,7 @@ header {
     border: 1px solid #ccc;
 }
 .form_wrapper_footer {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     overflow: hidden;
     padding: 15px 20px;
 }
@@ -304,17 +304,17 @@ header {
     margin-top: -1px;
 }
 .contacts-supports i {
-    color: #ed1556;
+    color: #00a99d;
     margin-right: 5px;
 }
 .contacts-supports .support-email {
     border-left: 1px solid #ccc;
-    color: #ed1556;
+    color: #00a99d;
     margin-left: 14px;
     padding-left: 16px;
 }
 .accounts-login:hover > a {
-    color: #ed1556;
+    color: #00a99d;
 }
 /*======================
 4. Header-bottom
@@ -370,13 +370,13 @@ header {
     padding-right: 0;
 }
 .main-menu nav > ul > li:hover > a {
-    border-bottom: 1px solid #ed1556;
-    color: #ed1556;
+    border-bottom: 1px solid #00a99d;
+    color: #00a99d;
     font-weight: 400;
 }
 .main-menu nav ul li.active > a{
-    border-bottom: 1px solid #ed1556;
-    color: #ed1556;
+    border-bottom: 1px solid #00a99d;
+    color: #00a99d;
     font-weight: 400;
 }
 .main-menu ul li a {
@@ -391,7 +391,7 @@ header {
     display: block;
 }
 span.donate-tdy {
-  background: #ed1556 none repeat scroll 0 0;
+  background: #00a99d none repeat scroll 0 0;
   color: #fff;
 }
 span.donate-tdy {
@@ -467,7 +467,7 @@ span.donate-tdy {
     text-transform: uppercase;
 }
 .main-menu .submenu li a:hover,.main-menu ul li ul.shp-menu li a:hover,.mega-menu a:hover {
-    color: #ed1556;
+    color: #00a99d;
     font-weight: 700;
 }
 .main-menu ul li ul.shp-menu{
@@ -565,7 +565,7 @@ span.donate-tdy {
 6. Urgent-cause-area
 =======================*/
 .urgent-cause-area{
-    background: #ed1556 url(img/bkg_content.png) repeat scroll 0 0;
+    background: #00a99durl(img/bkg_content.png) repeat scroll 0 0;
 }
 h2.section-title-white {
     font-family: "Montserrat",sans-serif;
@@ -587,7 +587,7 @@ h2.section-title-white {
     overflow: visible;
 }
 .urgent-cause-prgrs-bar .progress-bar,.progress .progress-bar{
-    background-color: #ed1556;
+    background-color: #00a99d;
     border-radius: 10px 0 0 10px;
     position: relative;
 }
@@ -601,14 +601,14 @@ h2.section-title-white {
     position: absolute;
     right: 9px;
     top: -23px;
-    color: #ed1556;
+    color: #00a99d;
     font-family: "Montserrat",sans-serif;
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
 }
 .urgent-cause-prgrs-bar .progress-bar span::before,.causes-area .cause-prgrs-br .progress-bar span:before {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     border-radius: 50%;
     content: "";
     height: 10px;
@@ -617,7 +617,7 @@ h2.section-title-white {
     width: 10px;
 }
 .urgent-cause-prgrs-bar .progress-bar span::after,.causes-area .cause-prgrs-br .progress-bar span:after {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     content: "";
     height: 18px;
     position: absolute;
@@ -670,7 +670,7 @@ h2.section-title-white {
 .btn-dnt a {
     background: #fff none repeat scroll 0 0;
     border-color: transparent;
-    color: #ed1556;
+    color: #00a99d;
     font-size: 17px;
     opacity: 1;
     padding: 17px 30px 16px;
@@ -761,7 +761,7 @@ h2.section-title-black {
     text-transform: uppercase;
 }
 .cause-desig-title h3::before {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     bottom: 0;
     content: "";
     height: 1px;
@@ -771,7 +771,7 @@ h2.section-title-black {
     width: 43px;
 }
 .cause-desig-title h3 a:hover,td.pro-name a:hover,.bck-to-tp:hover{
-    color: #ed1556
+    color: #00a99d
 }
 .cause-dnt a,.pre-learn-more a,.price_button a {
     background-color: transparent;
@@ -787,7 +787,7 @@ h2.section-title-black {
     transition: all 0.3s ease 0s;
 }
 .cause-dnt a:hover,.up-cart-pros:hover,.price_button a:hover {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     color: #fff;
     border-color: transparent;
 }
@@ -832,7 +832,7 @@ h2.section-title-black {
 9. Search-for-cause-area
 =========================*/
 .search-for-cause-area, .newsletter-area {
-  background: #ed1556 url("img/bkg_content.png") repeat scroll 0 0;
+  background: #00a99durl("img/bkg_content.png") repeat scroll 0 0;
   padding: 33px 0 30px;
 }
 .cause-icons {
@@ -961,7 +961,7 @@ h2.section-title-black {
 }
 .cause-search-btns input:hover,.button.button3:hover,.envo-btn a:hover {
     background: #fff none repeat scroll 0 0;
-    color: #ed1556;
+    color: #00a99d;
 }
 /*=====================
 10. Charity-shop-area
@@ -1012,14 +1012,14 @@ h2.section-title-black {
     font-family: "Montserrat",sans-serif;
 }
 .product-desc h3 a:hover{
-    color: #ed1556
+    color: #00a99d
 }
 .product-rating {
     line-height: 0;
     margin-bottom: 18px;
 }
 .product-rating a {
-    color: #ed1556;
+    color: #00a99d;
     font-size: 10px;
     margin: 0 1px;
 }
@@ -1042,7 +1042,7 @@ h2.section-title-black {
     line-height: 1.3;
 }
 .product-actions {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     bottom: 0;
     overflow: hidden;
     padding: 15px 0;
@@ -1147,7 +1147,7 @@ h2.section-title-black {
     font-family: "Montserrat",sans-serif;
 }
 .mdl-pro-descs h3 a:hover{
-    color: #ed1556
+    color: #00a99d
 }
 .mdl-pro-descs h3:before {
     background: #525252 none repeat scroll 0 0;
@@ -1190,7 +1190,7 @@ h2.section-title-black {
     margin-top: 11px;
 }
 .prc-range-md .price .amount {
-    color: #ed1556;
+    color: #00a99d;
     font-family: "Montserrat",sans-serif;
     font-size: 30px;
     font-weight: 400;
@@ -1222,8 +1222,8 @@ h2.section-title-black {
 }
 .mdl-fav-icon a {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-    border: 1px solid #ed1556;
-    color: #ed1556;
+    border: 1px solid #00a99d;
+    color: #00a99d;
     display: block;
     font-size: 18px;
     height: 50px;
@@ -1234,7 +1234,7 @@ h2.section-title-black {
     width: 50px;
 }
 .mdl-fav-icon a:hover {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     color: #fff;
 }
 ul.mdl-tab li {
@@ -1324,7 +1324,7 @@ ul.mdl-tab li {
     margin-bottom: 15px;
 }
 .help-icon-circle {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     border-radius: 100%;
     color: #fff;
     height: 100px;
@@ -1369,7 +1369,7 @@ ul.mdl-tab li {
     text-transform: none;
 }
 .single-help-descs h4::after,.be-first-comments h4:after {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     content: "";
     height: 1px;
     left: 0;
@@ -1456,7 +1456,7 @@ ul.mdl-tab li {
     margin-bottom: 2px;
 }
 .single-child-bnr-descs h2 a:hover,.recent-news-desc h4 a:hover{
-    color: #ed1556
+    color: #00a99d
 }
 .single-child-banner:hover .single-child-bnr-descs{
     bottom: 0;
@@ -1537,7 +1537,7 @@ ul.mdl-tab li {
     z-index: 5;
 }
 .recent-news-img .extra-date::before {
-    color: #ed1556;
+    color: #00a99d;
     content: "";
     font: 75px "FontAwesome";
     left: 0;
@@ -1555,7 +1555,7 @@ ul.mdl-tab li {
     z-index: -1;
 }
 .recent-news-img .extra-date .wd-date {
-    color: #ed1556;
+    color: #00a99d;
     display: block;
     font-family: "Montserrat",sans-serif;
     font-size: 30px;
@@ -1565,7 +1565,7 @@ ul.mdl-tab li {
     text-transform: uppercase;
 }
 .recent-news-img .extra-date .wd-month {
-    color: #ed1556;
+    color: #00a99d;
     font-family: "Montserrat",sans-serif;
     font-size: 10px;
     font-weight: 700;
@@ -1581,7 +1581,7 @@ ul.mdl-tab li {
     font-weight: 700;
 }
 .recent-news-desc h4::before {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     bottom: 0;
     content: "";
     height: 1px;
@@ -1604,7 +1604,7 @@ ul.mdl-tab li {
     margin: 0 10px 5px 0;
 }
 .recent-admin-comments div.entry-author::before {
-    color: #ed1556;
+    color: #00a99d;
     content: "";
     font: 12px "FontAwesome";
     margin-right: 8px;
@@ -1618,7 +1618,7 @@ ul.mdl-tab li {
     text-transform: capitalize;
 }
 .recent-admin-comments div.comments-count::before {
-    color: #ed1556;
+    color: #00a99d;
     content: "";
     font: 12px "FontAwesome";
     margin-right: 10px;
@@ -1649,7 +1649,7 @@ ul.mdl-tab li {
     margin-bottom: 7px;
 }
 .testimonial-desc .post-info-meta div.entry-date {
-    color: #ed1556;
+    color: #00a99d;
     margin: 0 0 12px;
     padding: 0 0 15px;
     position: relative;
@@ -1657,7 +1657,7 @@ ul.mdl-tab li {
     font-weight: 400;
 }
 .testimonial-desc .post-info-meta div.entry-date::before {
-    color: #ed1556;
+    color: #00a99d;
     content: "";
     font: 12px "FontAwesome";
     margin-right: 12px;
@@ -1681,13 +1681,13 @@ ul.mdl-tab li {
 17. Contact-us-area
 =======================*/
 .contact-us-area {
-    background: #ed1556 url("img/bkg_content.png") repeat scroll 0 0;
+    background: #00a99durl("img/bkg_content.png") repeat scroll 0 0;
     margin-bottom: -150px;
     padding-bottom: 160px;
 }
 .contact-addrss li .adrs-icon {
     background: rgba(0, 0, 0, 0) url("img/hexagon_address.png") no-repeat scroll 0 0;
-    color: #ed1556;
+    color: #00a99d;
     float: left;
     height: 40px;
     line-height: 40px;
@@ -1731,7 +1731,7 @@ ul.mdl-tab li {
 .cntct-form-txtarea > input,.cntct-txtarea input,.comment-txtarea input,.tab-sbmt input,.my-acc-lgin-btn input,.coupon-info .form-row input,.widget_shopping_cart_content .buttons a.button {
     background: #fff none repeat scroll 0 0;
     border: medium none;
-    color: #ed1556;
+    color: #00a99d;
     display: inline-block;
     float: right;
     font-family: "Montserrat",sans-serif;
@@ -1801,7 +1801,7 @@ ul.mdl-tab li {
     width: 100%;
 }
 .copyryt-txt > a {
-    color: #ed1556;
+    color: #00a99d;
 }
 .copyryt-txt > a:hover {
     text-decoration: underline;
@@ -1829,7 +1829,7 @@ ul.mdl-tab li {
     color: #fff
 }
 .footer-menu ul li a:hover{
-    color: #ed1556
+    color: #00a99d
 }
 #scrollUp {
     background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
@@ -1854,7 +1854,7 @@ ul.mdl-tab li {
 	background: transparent;
 }
 .mobile-menu-area {
-	background: #ed1556;
+	background: #00a99d;
 }
 .mean-container .mean-nav ul li a.mean-expand {
 	background: transparent none repeat scroll 0 0;
@@ -1864,7 +1864,7 @@ ul.mdl-tab li {
 	background: transparent none repeat scroll 0 0;
 }
 .mean-container .mean-nav ul li a:hover {
-	color: #ed1556;
+	color: #00a99d;
 }
 .mobile-menu-area-blue {
 	background: #0669dd none repeat scroll 0 0;
@@ -2067,7 +2067,7 @@ a.fshn-befr:hover:before{
     color: #fff
 } 
 .big-banner-descs > a:hover{
-    color: #ed1556
+    color: #00a99d
 }
 .single-padding {
   background: #f4f4f4 none repeat scroll 0 0;
@@ -2101,7 +2101,7 @@ a.fshn-befr:hover:before{
     transition: .3s
 }
 .portfolio-menu .filter.active,.portfolio-menu ul li:hover {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     border-color: transparent;
     color: #fff;
 }
@@ -2116,7 +2116,7 @@ a.fshn-befr:hover:before{
     margin-top: 12px;
 }
 .entry-date::before {
-    color: #ed1556;
+    color: #00a99d;
     content: "";
     font: 12px "FontAwesome";
     margin-right: 12px;
@@ -2146,7 +2146,7 @@ a.fshn-befr:hover:before{
     text-align: center;
 }
 .blog-pg-nav span,.blog-pg-nav a:hover {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     border-color: transparent;
     color: #fff;
 }
@@ -2186,7 +2186,7 @@ ul.list-grid-tab li a{
     border: 1px solid #ebebeb
 }
 ul.list-grid-tab li.active a {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     border: 1px solid transparent;
     color: #fff;
     display: block;
@@ -2231,7 +2231,7 @@ ul.list-grid-tab li.active a {
     width: initial;
 }
 .all-products-area #profile .list-add-to-cart button {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     height: 40px;
     line-height: 38px;
 }
@@ -2240,7 +2240,7 @@ ul.list-grid-tab li.active a {
     width: initial;
 }
 .all-products-area #profile .add-to-links a {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     display: inline-block;
     height: 40px;
     line-height: 38px;
@@ -2317,12 +2317,12 @@ ul.list-grid-tab li.active a {
     padding: 10px 0 0 50px;
 }
 .product-categories > li:hover > a::before {
-    background-color: #ed1556;
+    background-color: #00a99d;
     border-color: transparent;
     color: #fff;
 }
 .product-categories > li:hover > a,.product-categories > li:hover > span,ul.pro-cat-children li:hover a,ul.pro-cat-children li:hover span,.top-rated-descs > a:hover,.flick-see-more a:hover{
-    color: #ed1556
+    color: #00a99d
 }
 .single-top-rated{
     margin-bottom: 20px;
@@ -2372,13 +2372,13 @@ ul.list-grid-tab li.active a {
     margin-top: 20px;
 }
 .ui-widget-header {
-    background-color: #ed1556;
+    background-color: #00a99d;
 }
 .ui-corner-all {
     border-radius: 0 !important;
 }
 .ui-slider-handle.ui-state-default.ui-corner-all {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     border: medium none;
     border-radius: 50% !important;
     height: 12px;
@@ -2392,7 +2392,7 @@ ul.list-grid-tab li.active a {
     text-align: right;
 }
 .price-slider-amount input.pri-sub{
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     border-radius: 0;
     color: #fff;
     display: inline-block;
@@ -2521,7 +2521,7 @@ a.wd_cart_title {
     text-transform: uppercase;
 }
 .widget_shopping_cart_content .buttons a.button.mygs {
-  background: #ed1556 none repeat scroll 0 0;
+  background: #00a99d none repeat scroll 0 0;
   color: #fff;
 }
 .widget_shopping_cart_content .buttons a.button.normal {
@@ -2582,7 +2582,7 @@ a.wd_cart_title {
     right: 0;
 }
 .single-help-descs p a:hover{
-    color: #ed1556
+    color: #00a99d
 }
 .ctmts{
     margin-top: 60px;
@@ -2596,7 +2596,7 @@ a.wd_cart_title {
     border: 1px solid #ccc;
 }
 .cntct-txtarea input,.comment-txtarea input,.tab-sbmt input,.my-acc-lgin-btn input,.coupon-info .form-row input{
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     color: #fff;
     text-transform: uppercase;
     font-weight: 700;
@@ -2685,7 +2685,7 @@ a.wd_cart_title {
     width: 80px;
 }
 .sngle-add-crt button {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     border-radius: 0;
     color: #fff;
     display: block;
@@ -2728,7 +2728,7 @@ a.wd_cart_title {
     text-align: center;
 }
 .single-pro-social a {
-    background-color: #ed1556;
+    background-color: #00a99d;
     display: inline-block;
     height: 16.17px;
     margin: 8.08px 7px;
@@ -2738,7 +2738,7 @@ a.wd_cart_title {
     width: 28px;
 }
 .single-pro-social a::before {
-    border-bottom: 8.08px solid #ed1556;
+    border-bottom: 8.08px solid #00a99d;
     bottom: 100%;
 }
 .single-pro-social a::before, .single-pro-social a::after {
@@ -2749,7 +2749,7 @@ a.wd_cart_title {
     width: 0;
 }
 .single-pro-social a::after {
-    border-top: 8.08px solid #ed1556;
+    border-top: 8.08px solid #00a99d;
     top: 100%;
     width: 0;
 }
@@ -2775,7 +2775,7 @@ a.wd_cart_title {
     text-align: left;
 }
 .single-pro-tags span.tagged_as a {
-    color: #ed1556;
+    color: #00a99d;
     font-size: 13px;
     font-weight: 700;
     text-transform: uppercase;
@@ -2785,11 +2785,11 @@ a.wd_cart_title {
 }
 .return-shipping .content-quick {
     background: #fffaf9 url("img/logo/return_shipping.png") no-repeat scroll 19px center;
-    border: 1px dashed #ed1556;
+    border: 1px dashed #00a99d;
     padding: 19px 19px 19px 78px;
 }
 .return-shipping h3 {
-    color: #ed1556;
+    color: #00a99d;
     font-weight: 700;
     margin: 0 0 10px;
 }
@@ -2831,8 +2831,8 @@ ul.single-pro-tab li a{
     text-transform: uppercase;
 }
 ul.single-pro-tab li.active a,ul.single-pro-tab li a:hover {
-    background: #ed1556 none repeat scroll 0 0;
-    border-color: #ed1556;
+    background: #00a99d none repeat scroll 0 0;
+    border-color: #00a99d;
     color: #fff;
 }
 .tab-description h4 {
@@ -2897,7 +2897,7 @@ ul.single-pro-tab li.active a,ul.single-pro-tab li a:hover {
     content: "\f006";
 }
 .rev-rating-icon a {
-    color: #ed1556;
+    color: #00a99d;
     display: inline-block;
     font-size: 12px;
     font-weight: 400;
@@ -2910,7 +2910,7 @@ ul.single-pro-tab li.active a,ul.single-pro-tab li a:hover {
 }
 .rev-rating-icon a:hover:before{
     content: "\f005";
-    color: #ed1556;
+    color: #00a99d;
 }
 .name-review input, .tb-your-review textarea {
     max-width: 500px;
@@ -2959,7 +2959,7 @@ ul.single-pro-tab li.active a,ul.single-pro-tab li a:hover {
 }
 thead th{
     text-align: center;
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     color: #fff;
     font-size: 15px;
     font-weight: 400;
@@ -3030,7 +3030,7 @@ td.pro-rmv a {
     font-weight: 700;
 }
 .pro-cart-totals table tr.total td .amount {
-    color: #ed1556;
+    color: #00a99d;
     font-weight: 700;
     font-family: "Montserrat",sans-serif;
 }
@@ -3045,7 +3045,7 @@ td.pro-rmv a {
     font-size: 15px;
     font-weight: 700;
     padding: 18px 10px 17px;
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     color: #fff;
     font-family: "Montserrat",sans-serif;
     line-height: 15px;
@@ -3134,7 +3134,7 @@ label.inline {
     height: inherit;
 }
 .wd-login-left .lost_password a {
-    color: #ed1556;
+    color: #00a99d;
     margin-top: 8px;
     opacity: 0.9;
 }
@@ -3149,7 +3149,7 @@ label.inline {
     border: 1px solid #ebebeb;
 }
 .my-acc-menu h3 {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     color: #fff;
     font-size: 17px;
     font-weight: 700;
@@ -3170,7 +3170,7 @@ label.inline {
     padding-top: 0;
 }
 .acc-menu-content li a:hover{
-    color: #ed1556
+    color: #00a99d
 }
 /*=====================
 29. Checkout page
@@ -3245,7 +3245,7 @@ p.checkout-coupon input[type="text"] {
     width: 170px;
 }
 p.checkout-coupon input[type="submit"] {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     border: medium none;
     border-radius: 0;
     color: #fff;
@@ -3401,7 +3401,7 @@ p.checkout-coupon input[type="submit"]:hover{
     display: block;
 }
 .order-button-payment input {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     border: medium none;
     color: #fff;
     font-size: 15px;
@@ -3448,7 +3448,7 @@ p.checkout-coupon input[type="submit"]:hover{
     min-width: 100px;
 }
 .categories a:hover,.blog-detail-area .author-inner .author-detail li a:hover,ol.comment-list .reply a:hover,.comment-time:hover{
-    color: #ed1556
+    color: #00a99d
 }
 .blog-detail-area .post-info-meta-bottom > div.tags .tag-links a {
     border: 1px solid #525252;
@@ -3472,7 +3472,7 @@ p.checkout-coupon input[type="submit"]:hover{
     vertical-align: top;
 }
 .blog-detail-area .social_icon a::before,.team-descs .social_icon a:before {
-    border-bottom: 8.08px solid #ed1556;
+    border-bottom: 8.08px solid #00a99d;
     bottom: 100%;
 }
 .blog-detail-area .social_icon a::before, .blog-detail-area .social_icon a::after,.team-descs .social_icon a:before,.team-descs .social_icon a:after {
@@ -3483,12 +3483,12 @@ p.checkout-coupon input[type="submit"]:hover{
     width: 0;
 }
 .blog-detail-area .social_icon a::after,.team-descs .social_icon a:after {
-    border-top: 8.08px solid #ed1556;
+    border-top: 8.08px solid #00a99d;
     top: 100%;
     width: 0;
 }
 .blog-detail-area .social_icon a,.team-descs .social_icon a{
-    background-color: #ed1556;
+    background-color: #00a99d;
     display: inline-block;
     height: 16.17px;
     margin: 8.08px 7px;
@@ -3564,7 +3564,7 @@ p.checkout-coupon input[type="submit"]:hover{
     text-transform: none;
 }
 .comments-area .title h3::before {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     bottom: 0;
     content: "";
     height: 1px;
@@ -3684,7 +3684,7 @@ ol.comment-list > li + li {
     margin-bottom: 5px;
 }
 .entry-meta,.rcnt-blg-descs a:hover {
-    color: #ed1556;
+    color: #00a99d;
 }
 .blg-tags{
     margin-bottom: 40px;
@@ -3705,7 +3705,7 @@ ol.comment-list > li + li {
     font-family: 'Lato';
 }
 .all-tag-cloud a:hover {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     border-color: transparent;
     color: #fff;
     opacity: 1;
@@ -3768,7 +3768,7 @@ ol.comment-list > li + li {
 	width: 240px;
 }
 .product-name a:hover{
-	color:#ED1556
+	color:#00a99d
 }
 /*=====================
 32. Services page
@@ -3787,7 +3787,7 @@ ol.comment-list > li + li {
     padding-bottom: 15px;
 }
 .presentations h3:before{
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     bottom: 0;
     content: "";
     height: 1px;
@@ -3796,7 +3796,7 @@ ol.comment-list > li + li {
     width: 44px;
 }
 .pre-learn-more a {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     color: #fff;
     border: none;
 }
@@ -3911,7 +3911,7 @@ ol.comment-list > li + li {
     padding: 0 20px 15px;
 }
 .single-pricing.acitve_price .prices {
-    background: #ed1556 none repeat scroll 0 0;
+    background: #00a99d none repeat scroll 0 0;
     color: #fff;
 }
 .single-pricing.acitve_price .prices h3 {
@@ -3943,7 +3943,7 @@ ol.comment-list > li + li {
     opacity: 0.9;
 }
 .team-descs em {
-    color: #ed1556;
+    color: #00a99d;
     font-family: "Lato";
     font-size: 15px;
     font-style: normal;
@@ -4063,7 +4063,7 @@ i#xtraangle {
 	cursor:pointer
 }
 .product-categories > li:hover > i#xtraangle {
-	background-color: #ed1556;
+	background-color: #00a99d;
 	border-color: transparent;
 	color: #fff;
 }

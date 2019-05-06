@@ -24,8 +24,35 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/master.css">
 
         <script src="${pageContext.request.contextPath}/resources/js/vendor/modernizr-2.8.3.min.js"></script>
+         <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery-1.12.0.min.js"></script>
+        <!-- bootstrap js -->
+        <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+        <!-- owl.carousel js -->
+        <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+        <!-- jquery-ui js -->
+        <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
+        <!-- wow js -->
+        <script src="${pageContext.request.contextPath}/resources/js/wow.min.js"></script>
+        <!-- venobox js -->
+        <script src="${pageContext.request.contextPath}/resources/js/venobox.min.js"></script>
+        <!-- mixitup js -->
+        <script src="${pageContext.request.contextPath}/resources/js/jquery.mixitup.js"></script>   
+        <!-- elevateZoom js -->
+        <script src="${pageContext.request.contextPath}/resources/js/jquery.elevateZoom-3.0.8.min.js"></script>
+        <!-- nivo-slider js -->
+        <script src="${pageContext.request.contextPath}/resources/lib/js/jquery.nivo.slider.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/resources/lib/home.js" type="text/javascript"></script>   
+        <!-- meanmenu js -->
+        <script src="${pageContext.request.contextPath}/resources/js/jquery.meanmenu.js"></script>
+        <!-- plugins js -->
+        <script src="${pageContext.request.contextPath}/resources/js/plugins.js"></script>
+        <!-- main js -->
+        <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
     </head>
 		<tiles:insertAttribute name="header" />
+		
+		 <body>
     	<tiles:insertAttribute name="body" />
-    
+    	<tiles:insertAttribute name="footer" />
+        </body>
 </html>

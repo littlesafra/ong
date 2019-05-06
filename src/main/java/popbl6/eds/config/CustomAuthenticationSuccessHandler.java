@@ -13,7 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import popbl6.eds.model.User;
+import popbl6.eds.model.Usuario;
 import popbl6.eds.service.UserService;
 
 
@@ -34,7 +34,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		
 		System.out.println("userName=" + userName);
 
-		User theUser = userService.findByUserName(userName);
+		Usuario theUser = userService.findByUserName(userName);
 		
 		// now place in the session
 		HttpSession session = request.getSession();

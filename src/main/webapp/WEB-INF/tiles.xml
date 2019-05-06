@@ -5,9 +5,13 @@
 <tiles-definitions>
 	<definition name="main_site"
 		template="/WEB-INF/jsp/mainLayout.jsp">
-		<put-attribute name="header" value="/WEB-INF/jsp/home/header.jsp" />
+		<put-attribute name="header"
+			value="/WEB-INF/jsp/header.jsp" />
 		<put-attribute name="body" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/jsp/footer.jsp" />
 	</definition>
+
 
 	<definition name="home" extends="main_site">
 		<put-attribute name="body"
@@ -15,7 +19,14 @@
 
 	</definition>
 
-	
+	<definition name="account" extends="main_site">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/account/body.jsp" />
+
+	</definition>
+
+
+
 
 
 

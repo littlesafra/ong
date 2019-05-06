@@ -22,10 +22,15 @@ public class MyContoller {
 	@GetMapping("/")
 	public String showHome(Model theModel) {
 	
-		System.out.println("prueba");
 		return "home";
 	}
 	
+	@GetMapping("/account")
+	public String account(Model theModel) {
+	
+
+		return "account";
+	}
 	
 
 }

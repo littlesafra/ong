@@ -2,13 +2,13 @@ package popbl6.eds.dao;
 
 import java.util.List;
 
-import popbl6.eds.model.User;
+import popbl6.eds.model.Usuario;
 
 public interface UserDao {
 
-    User findByUserName(String userName);
+	Usuario findByUserName(String userName);
     
-    void save(User user);
+    void save(Usuario user);
     
-    public List<User> getListUsers();
+    public List<Usuario> getListUsers();
 }
