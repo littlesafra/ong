@@ -46,8 +46,8 @@ DROP TABLE IF EXISTS donacion;
 CREATE TABLE IF NOT EXISTS donacion (
   id tinyint(3) unsigned NOT NULL,
   usuario_id tinyint(3) unsigned NOT NULL,
-  conaciones_cantidad integer unsigned NOT NULL,
-  donaciones_precio integer unsigned NOT NULL,
+  cantidad integer unsigned NOT NULL,
+  precio integer unsigned NOT NULL,
   KEY usuario_idDonaciones (usuario_id),
   PRIMARY KEY (id),
   CONSTRAINT usuario_idDonaciones FOREIGN KEY (usuario_id) REFERENCES usuario (id)
