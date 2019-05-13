@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: chat_web Maven Webapp
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Elena
+Implementation-Vendor-Id: chat_web
+Build-Jdk: 1.8.0_65
+Implementation-URL: http://maven.apache.org
+Created-By: Maven Integration for Eclipse
+
