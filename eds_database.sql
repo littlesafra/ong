@@ -119,7 +119,8 @@ DROP TABLE IF EXISTS necesidad_destino;
 CREATE TABLE IF NOT EXISTS necesidad_destino (
   tipo tinyint(3) unsigned NOT NULL,
   destino varchar(15) NOT NULL,
-  cantidad integer NOT NULL,
+  porcentaje_cantidad integer NOT NULL,
+  porcentaje_necesidad integer NOT NULL,
   KEY tipoNecesidades_destino (tipo),
   KEY destinoNecesidades_destino(destino),
   CONSTRAINT tipoNecesidades_destino FOREIGN KEY (tipo) REFERENCES categoria (id),
