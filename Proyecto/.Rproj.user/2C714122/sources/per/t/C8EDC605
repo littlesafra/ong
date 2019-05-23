@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1558604167949.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3677380828",
+    "id" : "C8EDC605",
+    "lastKnownWriteTime" : 1558608199,
+    "last_content_update" : 1558608199732,
+    "path" : "~/Proyecto/Principal.Rmd",
+    "project_path" : "Principal.Rmd",
+    "properties" : {
+        "cursorPosition" : "40,0",
+        "scrollLine" : "36",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
