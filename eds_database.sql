@@ -9,10 +9,9 @@ CREATE TABLE IF NOT EXISTS usuario (
   password varchar(15) NOT NULL,
   nombre varchar(15)  NOT NULL,
   apellido varchar(15) NOT NULL,
-  poblacion varchar(15) NOT NULL,
-  cp varchar(15) NOT NULL,
+  direccion varchar(15) NOT NULL,
   email varchar(15) NOT NULL,
-  donanete boolean,
+  donante boolean,
   UNIQUE KEY passwordUsuarios (username),
   PRIMARY KEY (id)
 );
@@ -46,8 +45,7 @@ DROP TABLE IF EXISTS donacion;
 CREATE TABLE IF NOT EXISTS donacion (
   id tinyint(3) unsigned NOT NULL,
   usuario_id tinyint(3) unsigned NOT NULL,
-  cantidad integer unsigned NOT NULL,
-  precio integer unsigned NOT NULL,
+  fecha date NOT NULL,
   KEY usuario_idDonaciones (usuario_id),
   PRIMARY KEY (id),
   CONSTRAINT usuario_idDonaciones FOREIGN KEY (usuario_id) REFERENCES usuario (id)
@@ -59,8 +57,8 @@ CREATE TABLE IF NOT EXISTS producto (
   categoria_id tinyint(3) unsigned NOT NULL,
   nombre varchar(15) NOT NULL,
   precio float NOT NULL,
-  imagen varchar(15),
-  cantidad integer NOT NULL,
+  descripcion varchar(80),
+  stock integer NOT NULL,
   KEY categoria_idProductos (categoria_id),
   PRIMARY KEY (id),
   CONSTRAINT usuario_idProductos FOREIGN KEY (categoria_id) REFERENCES categoria (id)
@@ -71,7 +69,7 @@ CREATE TABLE IF NOT EXISTS donaciones_detalles (
   donacion_id tinyint(3) unsigned NOT NULL,
   producto_id tinyint(3) unsigned NOT NULL,
   fecha date NOT NULL,
-  total_dinero integer unsigned NOT NULL,
+  cantidad integer unsigned NOT NULL,
   KEY donacion_idDonaciones_detalles (donacion_id),
   KEY producto_idDonaciones_detalles (producto_id),
   CONSTRAINT donacion_idDonaciones_detalles FOREIGN KEY (donacion_id) REFERENCES donacion (id),
@@ -91,6 +89,7 @@ DROP TABLE IF EXISTS producto_cesta;
 CREATE TABLE IF NOT EXISTS producto_cesta (
   cesta_id tinyint(3) unsigned NOT NULL,
   producto_id tinyint(3) unsigned NOT NULL,
+  cantidad integer unsigned NOT NULL,
   KEY id_cestaProductos_cestas (cesta_id),
   KEY id_productoProductos_cestas (producto_id),
   CONSTRAINT id_cestaProductos_cestas FOREIGN KEY (cesta_id) REFERENCES cesta (id),
