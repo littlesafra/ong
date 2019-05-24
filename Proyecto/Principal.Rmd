@@ -25,17 +25,34 @@ You can also embed plots, for example:
 plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot
+
 
 
 install.packages("readxl")
 library("readxl")
 
+envios_data <- read_excel("/Users/Elena/Desktop/datos1.xls")
+mancomunidades_data <- read.csv("/Users/Elena/Desktop/Proyecto.csv", head=TRUE)
+mancomunidades_scaled <- scale(mancomunidades_data)
+
+
+
+library(mlbench)
+summary_habitantes <- habitantes_data
+summary_envios <- envios_data
+
+library(D)
+library(RMySQL)
+mydb = dbConnect(MySQL(), user="root", host="localhost", password="password", dbname="database_ong")
+
+
 #leer fichero
-data <- read_excel("C:/Users/ACER/Desktop/proba.xls")
+library("readxl")
+data <- read_excel("/Users/Elena/Desktop/proba.xls")
 
 #Escalar datos(valor neutro)
-data.scale <- scale(data[,2:7])
+data.scale <- scale(data[,2:6])
 
 set.seed(80)
 data.km <- kmeans(data.scale,centers = 4)
@@ -46,13 +63,40 @@ names(data.km)
 #asignaciones del cluster
 data.km$cluster
 
+#añadimos clusters a la tabla
+data$Cluster <- data.km$cluster
 
-ModeloKMEANS <- kmeans(data[-1],4)
-Clientes$Grupo <- ModeloKMEANS$cluster
+
+#filtramos por grupos
+library(dplyr)
+grupo1 <- filter(data, data$Cluster == 1)
+grupo2 <- filter(data, data$Cluster == 2)
+grupo3 <- filter(data, data$Cluster == 3)
+grupo4 <- filter(data, data$Cluster == 4)
+
+#creamos una tabla por grupo, con las medias correspondientes
+Poblacion <- sum(grupo1$Poblacion)
+Renta_Personal <- mean(grupo1$Renta_Personal)
+Renta_Familiar <- mean(grupo1$Renta_Familiar)
+Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
+grupo1.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+
+Poblacion <- sum(grupo2$Poblacion)
+Renta_Personal <- mean(grupo2$Renta_Personal)
+Renta_Familiar <- mean(grupo2$Renta_Familiar)
+Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
+grupo2.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+
+Poblacion <- sum(grupo3$Poblacion)
+Renta_Personal <- mean(grupo3$Renta_Personal)
+Renta_Familiar <- mean(grupo3$Renta_Familiar)
+Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
+grupo3.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+
+Poblacion <- sum(grupo4$Poblacion)
+Renta_Personal <- mean(grupo4$Renta_Personal)
+Renta_Familiar <- mean(grupo4$Renta_Familiar)
+Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
+grupo4.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
 
 
-plot(Clientes$Edad,Clientes$MontoConsumo,
-     col=Clientes$Grupo,cex.axis=.7,cex.lab=.7)
-     
-     text(data$pob,Clientes$MontoConsumo,
-     labels=Clientes$Nombre,pos=1,col=Clientes$Grupo,cex=.7)
