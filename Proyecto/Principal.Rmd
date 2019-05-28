@@ -75,28 +75,46 @@ grupo3 <- filter(data, data$Cluster == 3)
 grupo4 <- filter(data, data$Cluster == 4)
 
 #creamos una tabla por grupo, con las medias correspondientes
-Poblacion <- sum(grupo1$Poblacion)
+Poblacion1 <- sum(grupo1$Poblacion)
 Renta_Personal <- mean(grupo1$Renta_Personal)
 Renta_Familiar <- mean(grupo1$Renta_Familiar)
 Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
-grupo1.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+Poblacion_total <- sum(data$Poblacion)
 
-Poblacion <- sum(grupo2$Poblacion)
+#Grupo1
+grupo1.medias <- data.frame(cbind(Poblacion1, Renta_Personal, Renta_Familiar, Renta_Mixta))
+Renta_Personal <- mean(grupo1$Renta_Personal)
+Renta_Familiar <- mean(grupo1$Renta_Familiar)
+Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
+grupo1.medias <- data.frame(cbind(Poblacion1, Renta_Personal, Renta_Familiar, Renta_Mixta))
+grupo1.medias$porcentajePoblacion <- Poblacion1 * 100 / Poblacion_total
+
+
+#Grupo2
+Poblacion2 <- sum(grupo2$Poblacion)
 Renta_Personal <- mean(grupo2$Renta_Personal)
 Renta_Familiar <- mean(grupo2$Renta_Familiar)
 Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
-grupo2.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+grupo2.medias <- data.frame(cbind(Poblacion2, Renta_Personal, Renta_Familiar, Renta_Mixta))
+grupo2.medias$porcentajePoblacion <- Poblacion2 * 100 / Poblacion_total
 
-Poblacion <- sum(grupo3$Poblacion)
+#Grupo3
+Poblacion3 <- sum(grupo3$Poblacion)
 Renta_Personal <- mean(grupo3$Renta_Personal)
 Renta_Familiar <- mean(grupo3$Renta_Familiar)
 Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
-grupo3.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+grupo3.medias <- data.frame(cbind(Poblacion3, Renta_Personal, Renta_Familiar, Renta_Mixta))
+grupo3.medias$porcentajePoblacion <- Poblacion3 * 100 / Poblacion_total
 
-Poblacion <- sum(grupo4$Poblacion)
+#Grupo4
+Poblacion4 <- sum(grupo4$Poblacion)
 Renta_Personal <- mean(grupo4$Renta_Personal)
 Renta_Familiar <- mean(grupo4$Renta_Familiar)
 Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
-grupo4.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+grupo4.medias <- data.frame(cbind(Poblacion4, Renta_Personal, Renta_Familiar, Renta_Mixta))
+grupo4.medias$porcentajePoblacion <- Poblacion4 * 100 / Poblacion_total
+
+
+
 
 
