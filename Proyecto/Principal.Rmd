@@ -45,7 +45,8 @@ summary_envios <- envios_data
 library(D)
 library(RMySQL)
 mydb = dbConnect(MySQL(), user="root", host="localhost", password="password", dbname="database_ong")
-
+#borrar variables de entorno
+remove(list = ls())
 
 #leer fichero
 library("readxl")
@@ -82,7 +83,7 @@ Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
 Poblacion_total <- sum(data$Poblacion)
 
 #Grupo1
-grupo1.medias <- data.frame(cbind(Poblacion1, Renta_Personal, Renta_Familiar, Renta_Mixta))
+Renta_Personal, Renta_Familiar, Renta_Mixta))
 Renta_Personal <- mean(grupo1$Renta_Personal)
 Renta_Familiar <- mean(grupo1$Renta_Familiar)
 Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
@@ -114,7 +115,13 @@ Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
 grupo4.medias <- data.frame(cbind(Poblacion4, Renta_Personal, Renta_Familiar, Renta_Mixta))
 grupo4.medias$porcentajePoblacion <- Poblacion4 * 100 / Poblacion_total
 
+#TablaMediasGrupos
+medias.total <- data.frame(rbind(as.matrix(grupo1.medias), as.matrix(grupo2.medias),as.matrix(grupo3.medias),as.matrix(grupo4.medias)))
+
+#Redondeamos los decimales a 4, porque sino, qplot da error
+medias.total$Renta_Mixta <- lapply(medias.total$Renta_Mixta, round, 0)
+medias.total$Poblacion1 <- lapply(medias.total$Poblacion1, round, 0)
 
 
-
-
+#Mostramos un gráfico XY con la población por
+plot(medias.total$Renta_Mixta,medias.total$Poblacion1, ylab="% Renta Mixta", xlab="% Población", col="Red")
