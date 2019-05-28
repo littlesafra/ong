@@ -1,0 +1,150 @@
+---
+title: "Prueba"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot
+
+
+
+install.packages("readxl")
+library("readxl")
+
+envios_data <- read_excel("/Users/Elena/Desktop/datos1.xls")
+mancomunidades_data <- read.csv("/Users/Elena/Desktop/Proyecto.csv", head=TRUE)
+mancomunidades_scaled <- scale(mancomunidades_data)
+
+library(mlbench)
+summary_habitantes <- habitantes_data
+summary_envios <- envios_data
+
+library(D)
+library(RMySQL)
+mydb = dbConnect(MySQL(), user="root", host="localhost", password="password", dbname="database_ong")
+#borrar variables de entorno
+remove(list = ls())
+
+#leer fichero
+library("readxl")
+data <- read_excel("/Users/Elena/Desktop/proba.xls")
+
+#Escalar datos(valor neutro)
+data.scale <- scale(data[,2:6])
+
+set.seed(80)
+
+
+#Método elbow para sacar el número optimo de clusters
+k.max <- 15
+wss <- sapply(1:k.max, 
+              function(k){kmeans(data.scale, k, nstart=50,iter.max = 15 )$tot.withinss})
+plot(1:k.max, wss,
+     type="b", pch = 19, frame = FALSE, 
+     xlab="Número de clusters K",
+     ylab="Suma total de cuadrados dentro de los clusters")
+#Podemos observar que en el gráfico el codo se marca en el número 5
+
+data.km <- kmeans(data.scale,centers = 5)
+
+#contenido del objeto
+names(data.km)
+
+#asignaciones del cluster
+data.km$cluster
+
+#añadimos clusters a la tabla
+data$Cluster <- data.km$cluster
+
+#filtramos por grupos
+library(dplyr)
+grupo1 <- filter(data, data$Cluster == 1)
+grupo2 <- filter(data, data$Cluster == 2)
+grupo3 <- filter(data, data$Cluster == 3)
+grupo4 <- filter(data, data$Cluster == 4)
+grupo5 <- filter(data, data$Cluster == 5)
+
+#Calculamos la poblacion total
+Poblacion_total <- sum(data$Poblacion)
+
+#Grupo1
+Poblacion <- sum(grupo1$Poblacion)
+Renta_Personal <- mean(grupo1$Renta_Personal)
+Renta_Familiar <- mean(grupo1$Renta_Familiar)
+Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
+grupo1.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+grupo1.medias$porcentajePoblacion <- Poblacion * 100 / Poblacion_total
+
+
+#Grupo2
+Poblacion <- sum(grupo2$Poblacion)
+Renta_Personal <- mean(grupo2$Renta_Personal)
+Renta_Familiar <- mean(grupo2$Renta_Familiar)
+Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
+grupo2.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+grupo2.medias$porcentajePoblacion <- Poblacion * 100 / Poblacion_total
+
+#Grupo3
+Poblacion <- sum(grupo3$Poblacion)
+Renta_Personal <- mean(grupo3$Renta_Personal)
+Renta_Familiar <- mean(grupo3$Renta_Familiar)
+Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
+grupo3.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+grupo3.medias$porcentajePoblacion <- Poblacion * 100 / Poblacion_total
+
+#Grupo4
+Poblacion <- sum(grupo4$Poblacion)
+Renta_Personal <- mean(grupo4$Renta_Personal)
+Renta_Familiar <- mean(grupo4$Renta_Familiar)
+Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
+grupo4.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+grupo4.medias$porcentajePoblacion <- Poblacion * 100 / Poblacion_total
+
+#Grupo5
+Poblacion <- sum(grupo5$Poblacion)
+Renta_Personal <- mean(grupo5$Renta_Personal)
+Renta_Familiar <- mean(grupo5$Renta_Familiar)
+Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
+grupo5.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+grupo5.medias$porcentajePoblacion <- Poblacion * 100 / Poblacion_total
+
+#Creamos distancia origen
+Poblacion <- 0
+Renta_Personal <- 0
+Renta_Familiar <- 0
+Renta_Mixta <- 0
+distancia.origen <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+distancia.origen$porcentajePoblacion <- 0
+
+#TablaMediasGrupos
+medias.total <- data.frame(rbind(as.matrix(grupo1.medias), as.matrix(grupo2.medias),as.matrix(grupo3.medias),as.matrix(grupo4.medias),as.matrix(grupo5.medias), as.matrix(distancia.origen)))
+
+#Mostramos un gráfico XY con la población por
+plot(medias.total$porcentajePoblacion,medias.total$Renta_Mixta,  main= " Renta Mixta por Población en Euskadi", ylab="% Renta Mixta", xlab="% Población", col="Red")
+
+dist(scale(medias.total))
+
+
+
+
