@@ -1,5 +1,5 @@
 ---
-title: "Principal"
+title: "Proba"
 output: html_document
 ---
 
@@ -25,9 +25,16 @@ You can also embed plots, for example:
 plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
+#conexion base de datos
+install.packages("RMySQL")
+library(DBI)
+con <- dbConnect(RMySQL::MySQL(), user="root", host="localhost", password="", dbname="ikasbi")
 
+#Paste0 para eliminar separacion // tener en cuenta los datos que se introducen 
+myQuery <- myQuery <- paste0("INSERT INTO bazkideak (Izena) VALUES ('", data,"')")
+dbSendQuery(con,myQuery)
 
 install.packages("readxl")
 library("readxl")
@@ -125,3 +132,5 @@ medias.total$Poblacion1 <- lapply(medias.total$Poblacion1, round, 0)
 
 #Mostramos un gráfico XY con la población por
 plot(medias.total$Renta_Mixta,medias.total$Poblacion1, ylab="% Renta Mixta", xlab="% Población", col="Red")
+
+
