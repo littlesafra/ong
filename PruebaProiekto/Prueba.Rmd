@@ -45,13 +45,17 @@ library(RMySQL)
 mydb = dbConnect(MySQL(), user="root", host="localhost", password="password", dbname="database_ong")
 #borrar variables de entorno
 remove(list = ls())
-
+#-###########################################################################################################-#
 #leer fichero
 library("readxl")
-data <- read_excel("/Users/Elena/Desktop/proba.xls")
+data <- read_excel("/Users/Elena/Desktop/dataSetComarcas.xls")
 
 #Escalar datos(valor neutro)
-data.scale <- scale(data[,2:6])
+library(scales)
+
+#Ahora reescalamos un variable de la base de datos
+data.scale1kable(rescale(base$Income))
+data.scale <- scale(data[,2:7])
 
 set.seed(80)
 
@@ -61,9 +65,10 @@ k.max <- 15
 wss <- sapply(1:k.max, 
               function(k){kmeans(data.scale, k, nstart=50,iter.max = 15 )$tot.withinss})
 plot(1:k.max, wss,
-     type="b", pch = 19, frame = FALSE, 
+     type="b", pch = 19, frame = FALSE,
+     main="Número óptimo de clusters",
      xlab="Número de clusters K",
-     ylab="Suma total de cuadrados dentro de los clusters")
+     ylab="Suma total de cuadrados dentro de los clusters", col = "blue")
 #Podemos observar que en el gráfico el codo se marca en el número 5
 
 data.km <- kmeans(data.scale,centers = 5)
@@ -93,7 +98,9 @@ Poblacion <- sum(grupo1$Poblacion)
 Renta_Personal <- mean(grupo1$Renta_Personal)
 Renta_Familiar <- mean(grupo1$Renta_Familiar)
 Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
-grupo1.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+Paro <- mean(grupo1$Tasa_Paro)
+Inmigracion <- sum(grupo1$Inmigracion)
+grupo1.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta, Paro, Inmigracion))
 grupo1.medias$porcentajePoblacion <- Poblacion * 100 / Poblacion_total
 
 
@@ -102,7 +109,9 @@ Poblacion <- sum(grupo2$Poblacion)
 Renta_Personal <- mean(grupo2$Renta_Personal)
 Renta_Familiar <- mean(grupo2$Renta_Familiar)
 Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
-grupo2.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+Paro <- mean(grupo2$Tasa_Paro)
+Inmigracion <- sum(grupo2$Inmigracion)
+grupo2.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta, Paro, Inmigracion))
 grupo2.medias$porcentajePoblacion <- Poblacion * 100 / Poblacion_total
 
 #Grupo3
@@ -110,7 +119,9 @@ Poblacion <- sum(grupo3$Poblacion)
 Renta_Personal <- mean(grupo3$Renta_Personal)
 Renta_Familiar <- mean(grupo3$Renta_Familiar)
 Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
-grupo3.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+Paro <- mean(grupo3$Tasa_Paro)
+Inmigracion <- sum(grupo3$Inmigracion)
+grupo3.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta, Paro, Inmigracion))
 grupo3.medias$porcentajePoblacion <- Poblacion * 100 / Poblacion_total
 
 #Grupo4
@@ -118,7 +129,9 @@ Poblacion <- sum(grupo4$Poblacion)
 Renta_Personal <- mean(grupo4$Renta_Personal)
 Renta_Familiar <- mean(grupo4$Renta_Familiar)
 Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
-grupo4.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+Paro <- mean(grupo4$Tasa_Paro)
+Inmigracion <- sum(grupo4$Inmigracion)
+grupo4.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta, Paro, Inmigracion))
 grupo4.medias$porcentajePoblacion <- Poblacion * 100 / Poblacion_total
 
 #Grupo5
@@ -126,7 +139,9 @@ Poblacion <- sum(grupo5$Poblacion)
 Renta_Personal <- mean(grupo5$Renta_Personal)
 Renta_Familiar <- mean(grupo5$Renta_Familiar)
 Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
-grupo5.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+Paro <- mean(grupo5$Tasa_Paro)
+Inmigracion <- sum(grupo5$Inmigracion)
+grupo5.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta, Paro, Inmigracion))
 grupo5.medias$porcentajePoblacion <- Poblacion * 100 / Poblacion_total
 
 #Creamos distancia origen
@@ -134,7 +149,9 @@ Poblacion <- 0
 Renta_Personal <- 0
 Renta_Familiar <- 0
 Renta_Mixta <- 0
-distancia.origen <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta))
+Paro <- 0
+Inmigracion <- 0
+distancia.origen <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta, Paro, Inmigracion))
 distancia.origen$porcentajePoblacion <- 0
 
 #TablaMediasGrupos
