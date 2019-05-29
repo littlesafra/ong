@@ -1,139 +1,253 @@
-DROP DATABASE IF EXISTS database_ong;
-CREATE DATABASE IF NOT EXISTS database_ong;
-USE database_ong;
+-- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
+--
+-- Host: localhost    Database: eds
+-- ------------------------------------------------------
+-- Server version	8.0.13
 
-DROP TABLE IF EXISTS usuario;
-CREATE TABLE IF NOT EXISTS usuario (
-  id tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  username varchar(15) NOT NULL,
-  password varchar(15) NOT NULL,
-  nombre varchar(15)  NOT NULL,
-  apellido varchar(15) NOT NULL,
-  direccion varchar(15) NOT NULL,
-  email varchar(15) NOT NULL,
-  donante boolean,
-  UNIQUE KEY passwordUsuarios (username),
-  PRIMARY KEY (id)
-);
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+ SET NAMES utf8 ;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-DROP TABLE IF EXISTS rol;
-CREATE TABLE IF NOT EXISTS rol (
-  id tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  nombre varchar(15)  NOT NULL,
-  PRIMARY KEY (id)
-);
+--
+-- Table structure for table `categoria`
+--
 
-DROP TABLE IF EXISTS usuario_rol;
-CREATE TABLE IF NOT EXISTS usuario_rol (
-  rol_id tinyint(3) unsigned NOT NULL,
-  usuario_id tinyint(3) unsigned NOT NULL,
-  KEY rol_idUsuarios_roles (rol_id),
-  KEY usuario_idUsuarios_roles (usuario_id),
-  CONSTRAINT rol_idUsuarios_roles FOREIGN KEY (rol_id) REFERENCES rol (id),
-  CONSTRAINT usuario_idUsuarios_roles FOREIGN KEY (usuario_id) REFERENCES usuario (id)
-);
+DROP TABLE IF EXISTS `categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `categoria` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(15) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nombreCategoria` (`nombre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-DROP TABLE IF EXISTS categoria;
-CREATE TABLE IF NOT EXISTS categoria (
-  id tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  nombre varchar (15) NOT NULL,
-  UNIQUE KEY nombreCategoria (nombre),
-  PRIMARY KEY (id)
-);
+--
+-- Table structure for table `cesta`
+--
 
-DROP TABLE IF EXISTS donacion;
-CREATE TABLE IF NOT EXISTS donacion (
-  id tinyint(3) unsigned NOT NULL,
-  usuario_id tinyint(3) unsigned NOT NULL,
-  fecha date NOT NULL,
-  KEY usuario_idDonaciones (usuario_id),
-  PRIMARY KEY (id),
-  CONSTRAINT usuario_idDonaciones FOREIGN KEY (usuario_id) REFERENCES usuario (id)
-);
+DROP TABLE IF EXISTS `cesta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `cesta` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `usuario_idCestas` (`usuario_id`),
+  CONSTRAINT `usuario_idCestas` FOREIGN KEY (`usuario_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-DROP TABLE IF EXISTS producto;
-CREATE TABLE IF NOT EXISTS producto (
-  id tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  categoria_id tinyint(3) unsigned NOT NULL,
-  nombre varchar(15) NOT NULL,
-  precio float NOT NULL,
-  descripcion varchar(80),
-  stock integer NOT NULL,
-  KEY categoria_idProductos (categoria_id),
-  PRIMARY KEY (id),
-  CONSTRAINT usuario_idProductos FOREIGN KEY (categoria_id) REFERENCES categoria (id)
-);
+--
+-- Table structure for table `destino`
+--
 
-DROP TABLE IF EXISTS donacion_detalles;
-CREATE TABLE IF NOT EXISTS donaciones_detalles (
-  donacion_id tinyint(3) unsigned NOT NULL,
-  producto_id tinyint(3) unsigned NOT NULL,
-  fecha date NOT NULL,
-  cantidad integer unsigned NOT NULL,
-  KEY donacion_idDonaciones_detalles (donacion_id),
-  KEY producto_idDonaciones_detalles (producto_id),
-  CONSTRAINT donacion_idDonaciones_detalles FOREIGN KEY (donacion_id) REFERENCES donacion (id),
-  CONSTRAINT producto_idDonaciones_detalles FOREIGN KEY (producto_id) REFERENCES producto (id)
-);
+DROP TABLE IF EXISTS `destino`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `destino` (
+  `cp` varchar(15) NOT NULL,
+  `poblacion` varchar(15) NOT NULL,
+  `direccion` varchar(30) NOT NULL,
+  PRIMARY KEY (`cp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-DROP TABLE IF EXISTS cesta;
-CREATE TABLE IF NOT EXISTS cesta (
-  id tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  usuario_id tinyint(3) unsigned NOT NULL,
-  KEY usuario_idCestas (usuario_id),
-  PRIMARY KEY (id),
-  CONSTRAINT usuario_idCestas FOREIGN KEY (usuario_id) REFERENCES usuario (id)
-);
+--
+-- Table structure for table `donacion`
+--
 
-DROP TABLE IF EXISTS producto_cesta;
-CREATE TABLE IF NOT EXISTS producto_cesta (
-  cesta_id tinyint(3) unsigned NOT NULL,
-  producto_id tinyint(3) unsigned NOT NULL,
-  cantidad integer unsigned NOT NULL,
-  KEY id_cestaProductos_cestas (cesta_id),
-  KEY id_productoProductos_cestas (producto_id),
-  CONSTRAINT id_cestaProductos_cestas FOREIGN KEY (cesta_id) REFERENCES cesta (id),
-  CONSTRAINT id_productoProductos_cestas FOREIGN KEY (producto_id) REFERENCES producto (id)
-);
+DROP TABLE IF EXISTS `donacion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `donacion` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `usuario_idDonaciones` (`usuario_id`),
+  CONSTRAINT `usuario_idDonaciones` FOREIGN KEY (`usuario_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-DROP TABLE IF EXISTS destino;
-CREATE TABLE IF NOT EXISTS destino (
-  cp varchar(15) NOT NULL,
-  poblacion varchar(15) NOT NULL,
-  direccion varchar(30) NOT NULL,
-  PRIMARY KEY (cp)
-);
+--
+-- Table structure for table `donaciones_detalles`
+--
 
-DROP TABLE IF EXISTS envio;
-CREATE TABLE IF NOT EXISTS envio (
-  id tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  fecha_entrega date NOT NULL,
-  destino varchar(15) NOT NULL,
-  KEY destino_envios (destino),
-  PRIMARY KEY (id),
-  CONSTRAINT destino_envio FOREIGN KEY (destino) REFERENCES destino (cp)
-);
+DROP TABLE IF EXISTS `donaciones_detalles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `donaciones_detalles` (
+  `donacion_id` int(11) NOT NULL,
+  `producto_id` tinyint(3) unsigned NOT NULL,
+  `fecha` date NOT NULL,
+  `cantidad` int(10) unsigned NOT NULL,
+  KEY `donacion_idDonaciones_detalles` (`donacion_id`),
+  KEY `producto_idDonaciones_detalles` (`producto_id`),
+  CONSTRAINT `donacion_idDonaciones_detalles` FOREIGN KEY (`donacion_id`) REFERENCES `donacion` (`id`),
+  CONSTRAINT `producto_idDonaciones_detalles` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-DROP TABLE IF EXISTS necesidad_destino;
-CREATE TABLE IF NOT EXISTS necesidad_destino (
-  tipo tinyint(3) unsigned NOT NULL,
-  destino varchar(15) NOT NULL,
-  porcentaje_cantidad integer NOT NULL,
-  porcentaje_necesidad integer NOT NULL,
-  KEY tipoNecesidades_destino (tipo),
-  KEY destinoNecesidades_destino(destino),
-  CONSTRAINT tipoNecesidades_destino FOREIGN KEY (tipo) REFERENCES categoria (id),
-  CONSTRAINT destinoNecesidades_destino FOREIGN KEY (destino) REFERENCES destino (cp)
-);
+--
+-- Table structure for table `envio`
+--
 
-DROP TABLE IF EXISTS envio_detalles;
-CREATE TABLE IF NOT EXISTS envio_detalles (
-  envio_id tinyint(3) unsigned NOT NULL,
-  producto_id tinyint(3) unsigned NOT NULL,
-  fecha_entrega date NOT NULL,
-  total_dinero float unsigned NOT NULL,
-  KEY envio_idEnvios_detalles (envio_id),
-  KEY producto_idEnvios_detalles (producto_id),
-  CONSTRAINT envio_idEnvios_detalles FOREIGN KEY (envio_id) REFERENCES envio (id),
-  CONSTRAINT producto_idEnvios_detalles FOREIGN KEY (producto_id) REFERENCES producto (id)
-);
+DROP TABLE IF EXISTS `envio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `envio` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `fecha_entrega` date NOT NULL,
+  `destino` varchar(15) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `destino_envios` (`destino`),
+  CONSTRAINT `destino_envio` FOREIGN KEY (`destino`) REFERENCES `destino` (`cp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `envio_detalles`
+--
+
+DROP TABLE IF EXISTS `envio_detalles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `envio_detalles` (
+  `envio_id` tinyint(3) unsigned NOT NULL,
+  `producto_id` tinyint(3) unsigned NOT NULL,
+  `fecha_entrega` date NOT NULL,
+  `total_dinero` float unsigned NOT NULL,
+  KEY `envio_idEnvios_detalles` (`envio_id`),
+  KEY `producto_idEnvios_detalles` (`producto_id`),
+  CONSTRAINT `envio_idEnvios_detalles` FOREIGN KEY (`envio_id`) REFERENCES `envio` (`id`),
+  CONSTRAINT `producto_idEnvios_detalles` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `necesidad_destino`
+--
+
+DROP TABLE IF EXISTS `necesidad_destino`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `necesidad_destino` (
+  `tipo` tinyint(3) unsigned NOT NULL,
+  `destino` varchar(15) NOT NULL,
+  `porcentaje_cantidad` int(11) NOT NULL,
+  `porcentaje_necesidad` int(11) NOT NULL,
+  KEY `tipoNecesidades_destino` (`tipo`),
+  KEY `destinoNecesidades_destino` (`destino`),
+  CONSTRAINT `destinoNecesidades_destino` FOREIGN KEY (`destino`) REFERENCES `destino` (`cp`),
+  CONSTRAINT `tipoNecesidades_destino` FOREIGN KEY (`tipo`) REFERENCES `categoria` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `producto`
+--
+
+DROP TABLE IF EXISTS `producto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `producto` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `categoria_id` tinyint(3) unsigned NOT NULL,
+  `nombre` varchar(15) NOT NULL,
+  `precio` float NOT NULL,
+  `descripcion` varchar(80) DEFAULT NULL,
+  `stock` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `categoria_idProductos` (`categoria_id`),
+  CONSTRAINT `usuario_idProductos` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `producto_cesta`
+--
+
+DROP TABLE IF EXISTS `producto_cesta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `producto_cesta` (
+  `cesta_id` tinyint(3) unsigned NOT NULL,
+  `producto_id` tinyint(3) unsigned NOT NULL,
+  `cantidad` int(10) unsigned NOT NULL,
+  KEY `id_cestaProductos_cestas` (`cesta_id`),
+  KEY `id_productoProductos_cestas` (`producto_id`),
+  CONSTRAINT `id_cestaProductos_cestas` FOREIGN KEY (`cesta_id`) REFERENCES `cesta` (`id`),
+  CONSTRAINT `id_productoProductos_cestas` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `role`
+--
+
+DROP TABLE IF EXISTS `role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` char(80) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `direccion` varchar(45) NOT NULL,
+  `donante` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `users_roles`
+--
+
+DROP TABLE IF EXISTS `users_roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `users_roles` (
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  KEY `FK_USER_X` (`user_id`),
+  KEY `FK_ROLE_X` (`role_id`),
+  CONSTRAINT `FK_ROLE` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`),
+  CONSTRAINT `FK_USER` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-05-29 12:15:58
