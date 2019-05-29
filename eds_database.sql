@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS donaciones_detalles (
   KEY donacion_idDonaciones_detalles (donacion_id),
   KEY producto_idDonaciones_detalles (producto_id),
   CONSTRAINT donacion_idDonaciones_detalles FOREIGN KEY (donacion_id) REFERENCES donacion (id),
-  CONSTRAINT producto_idDonaciones_detalles FOREIGN KEY (producto_id) REFERENCES usuario (id)
+  CONSTRAINT producto_idDonaciones_detalles FOREIGN KEY (producto_id) REFERENCES producto (id)
 );
 
 DROP TABLE IF EXISTS cesta;
