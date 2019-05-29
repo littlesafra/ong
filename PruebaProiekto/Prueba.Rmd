@@ -54,9 +54,8 @@ data <- read_excel("/Users/Elena/Desktop/dataSetComarcas.xls")
 library(scales)
 
 #Ahora reescalamos un variable de la base de datos
-data.scale1kable(rescale(base$Income))
+#data.scale1kable(rescale(base$Income))
 data.scale <- scale(data[,2:7])
-
 set.seed(80)
 
 
