@@ -115,24 +115,49 @@ dist(scale(medias_total))
   
 for(i in 1:5){
   
-    Grupo <- paste0("Grupo ", i,"")
-    Renta_Mixta <- medias_total$Renta_Mixta[medias_total$Cluster == i]
-    porcentajePoblacion <- medias_total$porcentajePoblacion[medias_total$Cluster == i]
+  Grupo <- i
+  Renta_Mixta <- medias_total$Renta_Mixta[medias_total$Cluster == i]
+  porcentajePoblacion <- medias_total$porcentajePoblacion[medias_total$Cluster == i]
     
-    if(Renta_Mixta >= Renta_Cuadrante && porcentajePoblacion < Poblacion_Cuadrante)Cuadrante <- 1
-    else if(Renta_Mixta >= Renta_Cuadrante && porcentajePoblacion >= Poblacion_Cuadrante)Cuadrante <- 2
-    else if(Renta_Mixta < Renta_Cuadrante && porcentajePoblacion < Poblacion_Cuadrante)Cuadrante <- 3
-    else Cuadrante <- 4
+    if(Renta_Mixta >= Renta_Cuadrante && porcentajePoblacion < Poblacion_Cuadrante){
+  
+      Cuadrante <- as.numeric(1)
+      Importancia <- as.numeric(5)
     
-    if(i == 1)g1 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante))
-    else if(i == 2)g2 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante))
-    else if(i == 3)g3 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante))
-    else if(i == 4)g4 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante))
-    else g5 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante))
+    }else if(Renta_Mixta >= Renta_Cuadrante && porcentajePoblacion >= Poblacion_Cuadrante){
+    
+      Cuadrante <- as.numeric(2)
+      Importancia <- as.numeric(20)
+    
+    }else if(Renta_Mixta < Renta_Cuadrante && porcentajePoblacion < Poblacion_Cuadrante){
+    
+      Cuadrante <- as.numeric(3)
+      Importancia <- as.numeric(30)
+    
+    }else{
+    
+      Cuadrante <- as.numeric(4)
+      Importancia <- as.numeric(45)
+    
+    } 
+    
+    if(i == 1)g1 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Importancia,Cuadrante))
+    else if(i == 2)g2 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Importancia,Cuadrante))
+    else if(i == 3)g3 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Importancia,Cuadrante))
+    else if(i == 4)g4 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Importancia,Cuadrante))
+    else g5 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Importancia,Cuadrante))
+  
 }
 
 Tabla_Cuadrante <- data.frame(rbind(as.matrix(g1),as.matrix(g2),as.matrix(g3),as.matrix(g4),as.matrix(g5)))
 remove(g1,g2,g3,g4,g5)
+
+
+
+Importancia_Total <- sum(Tabla_Cuadrante$Importancia)
+
+
+
 
 #Para el calculo de las distancias
 Poblacion6<- 0
