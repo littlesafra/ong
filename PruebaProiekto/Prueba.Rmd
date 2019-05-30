@@ -57,7 +57,7 @@ remove(list = ls())
 
 #leer fichero
 library("readxl")
-data <- read_excel("/Users/ACER/Desktop/dataSetComarcas.xls")
+data <- read_excel("/Users/Elena/Desktop/dataSetComarcas.xls")
 
 #Escalar datos(valor neutro)
 data.scale <- scale(data[,2:7])
@@ -71,7 +71,7 @@ names(data.km)
 #asignaciones del cluster
 data.km$cluster
 
-#añadimos clusters a la tabla
+#a?adimos clusters a la tabla
 data$Cluster <- data.km$cluster
 
 #Poblacion total
@@ -84,7 +84,7 @@ for(i in 1:5){
   
   Poblacion <- sum(data$Poblacion[data$Cluster == i])
   Inmigracion <- sum(data$Inmigracion[data$Cluster == i])
-  Tasa_paro <- mean(data$Tasa_paro[data$Cluster == i])
+  Tasa_paro <- mean(data$Tasa_Paro[data$Cluster == i])
   Renta_Personal <- mean(data$Renta_Personal[data$Cluster == i])
   Renta_Familiar <- mean(data$Renta_Familiar[data$Cluster == i])
   Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
@@ -99,7 +99,6 @@ for(i in 1:5){
 }
 
 medias_total <- data.frame(rbind(as.matrix(g1),as.matrix(g2),as.matrix(g3),as.matrix(g4),as.matrix(g5)))
-
 
 
 #Mostramos un grafico XY con la poblacion por
@@ -119,21 +118,40 @@ for(i in 1:5){
     Renta_Mixta <- medias_total$Renta_Mixta[medias_total$Cluster == i]
     porcentajePoblacion <- medias_total$porcentajePoblacion[medias_total$Cluster == i]
     
-    if(Renta_Mixta >= Renta_Cuadrante && porcentajePoblacion < Poblacion_Cuadrante)Cuadrante <- 1
-    else if(Renta_Mixta >= Renta_Cuadrante && porcentajePoblacion >= Poblacion_Cuadrante)Cuadrante <- 2
-    else if(Renta_Mixta < Renta_Cuadrante && porcentajePoblacion < Poblacion_Cuadrante)Cuadrante <- 3
-    else Cuadrante <- 4
-    
-    if(i == 1)g1 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante))
-    else if(i == 2)g2 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante))
-    else if(i == 3)g3 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante))
-    else if(i == 4)g4 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante))
-    else g5 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante))
+    if(Renta_Mixta >= Renta_Cuadrante && porcentajePoblacion < Poblacion_Cuadrante){
+      Cuadrante <- 1
+      Importancia <- 5
+      }
+    else if(Renta_Mixta >= Renta_Cuadrante && porcentajePoblacion >= Poblacion_Cuadrante){
+      Cuadrante <- 2
+      Importancia <- 20
+
+    }
+    else if(Renta_Mixta < Renta_Cuadrante && porcentajePoblacion < Poblacion_Cuadrante){
+      Cuadrante <- 3
+      Importancia <- 30
+    }
+    else {
+      Cuadrante <- 4
+      Importancia <- 45
+    }
+    if(i == 1)g1 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante,as.numeric(Importancia))
+    else if(i == 2)g2 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante, as.numeric(Importancia))
+    else if(i == 3)g3 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante, as.numeric(Importancia))
+    else if(i == 4)g4 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante, as.numeric(Importancia))
+    else g5 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante, Importancia, as.numeric(Importancia)))
 }
 
 Tabla_Cuadrante <- data.frame(rbind(as.matrix(g1),as.matrix(g2),as.matrix(g3),as.matrix(g4),as.matrix(g5)))
 remove(g1,g2,g3,g4,g5)
 
+var <- 0
+for(i in 1:5){
+  print(Tabla_Cuadrante[i,5])
+ 
+}
+#var = var + Tabla_Cuadrante[i][4]
+print(sum(Tabla_Cuadrante$Importancia))
 #Para el calculo de las distancias
 Poblacion6<- 0
 Inmigracion <- 0
@@ -147,5 +165,8 @@ grupo6.medias$porcentajePoblacion <- Poblacion6 * 100 / Poblacion_total
 #Redondeamos los decimales a 4, porque sino, qplot da error
 #medias.total$Renta_Mixta <- lapply(medias.total$Renta_Mixta, round, 0)
 #medias.total$Poblacion1 <- lapply(medias.total$Poblacion1, round, 0)
+
+
+total.importancias <- sum(Tabla_Cuadrante$)
 
 
