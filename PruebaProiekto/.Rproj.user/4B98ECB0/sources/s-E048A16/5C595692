@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1559033425569.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1761671894",
+    "id" : "5C595692",
+    "lastKnownWriteTime" : 1559079970,
+    "last_content_update" : 1559079970370,
+    "path" : "~/Desktop/PruebaProiekto/Prueba.Rmd",
+    "project_path" : "Prueba.Rmd",
+    "properties" : {
+        "cursorPosition" : "150,0",
+        "scrollLine" : "130",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
