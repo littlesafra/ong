@@ -1,5 +1,5 @@
 ---
-title: "Prueba"
+title: "Proba"
 output: html_document
 ---
 
@@ -25,9 +25,16 @@ You can also embed plots, for example:
 plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
+#conexion base de datos
+install.packages("RMySQL")
+library(DBI)
+con <- dbConnect(RMySQL::MySQL(), user="root", host="localhost", password="", dbname="ikasbi")
 
+#Paste0 para eliminar separacion // tener en cuenta los datos que se introducen 
+myQuery <- myQuery <- paste0("INSERT INTO bazkideak (Izena) VALUES ('", data,"')")
+dbSendQuery(con,myQuery)
 
 install.packages("readxl")
 library("readxl")
@@ -35,6 +42,8 @@ library("readxl")
 envios_data <- read_excel("/Users/Elena/Desktop/datos1.xls")
 mancomunidades_data <- read.csv("/Users/Elena/Desktop/Proyecto.csv", head=TRUE)
 mancomunidades_scaled <- scale(mancomunidades_data)
+
+
 
 library(mlbench)
 summary_habitantes <- habitantes_data
@@ -45,31 +54,15 @@ library(RMySQL)
 mydb = dbConnect(MySQL(), user="root", host="localhost", password="password", dbname="database_ong")
 #borrar variables de entorno
 remove(list = ls())
-#-###########################################################################################################-#
+
 #leer fichero
 library("readxl")
-data <- read_excel("/Users/Elena/Desktop/dataSetComarcas.xls")
+data <- read_excel("/Users/ACER/Desktop/dataSetComarcas.xls")
 
 #Escalar datos(valor neutro)
-library(scales)
-
-#Ahora reescalamos un variable de la base de datos
-#data.scale1kable(rescale(base$Income))
 data.scale <- scale(data[,2:7])
+
 set.seed(80)
-
-
-#Método elbow para sacar el número optimo de clusters
-k.max <- 15
-wss <- sapply(1:k.max, 
-              function(k){kmeans(data.scale, k, nstart=50,iter.max = 15 )$tot.withinss})
-plot(1:k.max, wss,
-     type="b", pch = 19, frame = FALSE,
-     main="Número óptimo de clusters",
-     xlab="Número de clusters K",
-     ylab="Suma total de cuadrados dentro de los clusters", col = "blue")
-#Podemos observar que en el gráfico el codo se marca en el número 5
-
 data.km <- kmeans(data.scale,centers = 5)
 
 #contenido del objeto
@@ -78,89 +71,81 @@ names(data.km)
 #asignaciones del cluster
 data.km$cluster
 
-#añadimos clusters a la tabla
+#a�adimos clusters a la tabla
 data$Cluster <- data.km$cluster
 
-#filtramos por grupos
-library(dplyr)
-grupo1 <- filter(data, data$Cluster == 1)
-grupo2 <- filter(data, data$Cluster == 2)
-grupo3 <- filter(data, data$Cluster == 3)
-grupo4 <- filter(data, data$Cluster == 4)
-grupo5 <- filter(data, data$Cluster == 5)
-
-#Calculamos la poblacion total
+#Poblacion total
 Poblacion_total <- sum(data$Poblacion)
 
-#Grupo1
-Poblacion <- sum(grupo1$Poblacion)
-Renta_Personal <- mean(grupo1$Renta_Personal)
-Renta_Familiar <- mean(grupo1$Renta_Familiar)
-Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
-Paro <- mean(grupo1$Tasa_Paro)
-Inmigracion <- sum(grupo1$Inmigracion)
-grupo1.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta, Paro, Inmigracion))
-grupo1.medias$porcentajePoblacion <- Poblacion * 100 / Poblacion_total
+
+#Utilizando For
+
+for(i in 1:5){
+  
+  Poblacion <- sum(data$Poblacion[data$Cluster == i])
+  Inmigracion <- sum(data$Inmigracion[data$Cluster == i])
+  Tasa_paro <- mean(data$Tasa_paro[data$Cluster == i])
+  Renta_Personal <- mean(data$Renta_Personal[data$Cluster == i])
+  Renta_Familiar <- mean(data$Renta_Familiar[data$Cluster == i])
+  Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
+  porcentajePoblacion <- porcentajePoblacion <- Poblacion * 100 / Poblacion_total
+  Cluster <- i
+  
+    if(i == 1)g1 <- data.frame(cbind(Poblacion,Inmigracion,Tasa_paro,Renta_Personal,Renta_Familiar,Renta_Mixta,porcentajePoblacion,Cluster))
+    else if(i == 2)g2 <- data.frame(cbind(Poblacion,Inmigracion,Tasa_paro,Renta_Personal,Renta_Familiar,Renta_Mixta,porcentajePoblacion,Cluster))
+    else if(i == 3)g3 <- data.frame(cbind(Poblacion,Inmigracion,Tasa_paro,Renta_Personal,Renta_Familiar,Renta_Mixta,porcentajePoblacion,Cluster))
+    else if(i == 4)g4 <- data.frame(cbind(Poblacion,Inmigracion,Tasa_paro,Renta_Personal,Renta_Familiar,Renta_Mixta,porcentajePoblacion,Cluster))
+    else g5 <- data.frame(cbind(Poblacion,Inmigracion,Tasa_paro,Renta_Personal,Renta_Familiar,Renta_Mixta,porcentajePoblacion,Cluster))
+}
+
+medias_total <- data.frame(rbind(as.matrix(g1),as.matrix(g2),as.matrix(g3),as.matrix(g4),as.matrix(g5)))
 
 
-#Grupo2
-Poblacion <- sum(grupo2$Poblacion)
-Renta_Personal <- mean(grupo2$Renta_Personal)
-Renta_Familiar <- mean(grupo2$Renta_Familiar)
-Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
-Paro <- mean(grupo2$Tasa_Paro)
-Inmigracion <- sum(grupo2$Inmigracion)
-grupo2.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta, Paro, Inmigracion))
-grupo2.medias$porcentajePoblacion <- Poblacion * 100 / Poblacion_total
 
-#Grupo3
-Poblacion <- sum(grupo3$Poblacion)
-Renta_Personal <- mean(grupo3$Renta_Personal)
-Renta_Familiar <- mean(grupo3$Renta_Familiar)
-Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
-Paro <- mean(grupo3$Tasa_Paro)
-Inmigracion <- sum(grupo3$Inmigracion)
-grupo3.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta, Paro, Inmigracion))
-grupo3.medias$porcentajePoblacion <- Poblacion * 100 / Poblacion_total
+#Mostramos un grafico XY con la poblacion por
+plot(medias_total$porcentajePoblacion,medias_total$Renta_Mixta, ylab="% Renta Mixta", xlab="% Poblacion", col="Red")
 
-#Grupo4
-Poblacion <- sum(grupo4$Poblacion)
-Renta_Personal <- mean(grupo4$Renta_Personal)
-Renta_Familiar <- mean(grupo4$Renta_Familiar)
-Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
-Paro <- mean(grupo4$Tasa_Paro)
-Inmigracion <- sum(grupo4$Inmigracion)
-grupo4.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta, Paro, Inmigracion))
-grupo4.medias$porcentajePoblacion <- Poblacion * 100 / Poblacion_total
+dist(scale(medias_total))
 
-#Grupo5
-Poblacion <- sum(grupo5$Poblacion)
-Renta_Personal <- mean(grupo5$Renta_Personal)
-Renta_Familiar <- mean(grupo5$Renta_Familiar)
-Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
-Paro <- mean(grupo5$Tasa_Paro)
-Inmigracion <- sum(grupo5$Inmigracion)
-grupo5.medias <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta, Paro, Inmigracion))
-grupo5.medias$porcentajePoblacion <- Poblacion * 100 / Poblacion_total
 
-#Creamos distancia origen
-Poblacion <- 0
+#Tabla indentificador cuadrante
+
+ Renta_Cuadrante <- (max(medias_total$Renta_Mixta) + min(medias_total$Renta_Mixta))/2
+ Poblacion_Cuadrante <- (max(medias_total$porcentajePoblacion) + min(medias_total$porcentajePoblacion))/2
+  
+for(i in 1:5){
+  
+    Grupo <- paste0("Grupo ", i,"")
+    Renta_Mixta <- medias_total$Renta_Mixta[medias_total$Cluster == i]
+    porcentajePoblacion <- medias_total$porcentajePoblacion[medias_total$Cluster == i]
+    
+    if(Renta_Mixta >= Renta_Cuadrante && porcentajePoblacion < Poblacion_Cuadrante)Cuadrante <- 1
+    else if(Renta_Mixta >= Renta_Cuadrante && porcentajePoblacion >= Poblacion_Cuadrante)Cuadrante <- 2
+    else if(Renta_Mixta < Renta_Cuadrante && porcentajePoblacion < Poblacion_Cuadrante)Cuadrante <- 3
+    else Cuadrante <- 4
+    
+    if(i == 1)g1 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante))
+    else if(i == 2)g2 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante))
+    else if(i == 3)g3 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante))
+    else if(i == 4)g4 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante))
+    else g5 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante))
+}
+
+Tabla_Cuadrante <- data.frame(rbind(as.matrix(g1),as.matrix(g2),as.matrix(g3),as.matrix(g4),as.matrix(g5)))
+remove(g1,g2,g3,g4,g5)
+
+#Para el calculo de las distancias
+Poblacion6<- 0
+Inmigracion <- 0
+Tasa_paro <- 0
 Renta_Personal <- 0
 Renta_Familiar <- 0
 Renta_Mixta <- 0
-Paro <- 0
-Inmigracion <- 0
-distancia.origen <- data.frame(cbind(Poblacion, Renta_Personal, Renta_Familiar, Renta_Mixta, Paro, Inmigracion))
-distancia.origen$porcentajePoblacion <- 0
+grupo6.medias <- data.frame(cbind(Poblacion6, Inmigracion, Tasa_paro, Renta_Personal, Renta_Familiar, Renta_Mixta))
+grupo6.medias$porcentajePoblacion <- Poblacion6 * 100 / Poblacion_total
 
-#TablaMediasGrupos
-medias.total <- data.frame(rbind(as.matrix(grupo1.medias), as.matrix(grupo2.medias),as.matrix(grupo3.medias),as.matrix(grupo4.medias),as.matrix(grupo5.medias), as.matrix(distancia.origen)))
-
-#Mostramos un gráfico XY con la población por
-plot(medias.total$porcentajePoblacion,medias.total$Renta_Mixta,  main= " Renta Mixta por Población en Euskadi", ylab="% Renta Mixta", xlab="% Población", col="Red")
-
-dist(scale(medias.total))
-
-
+#Redondeamos los decimales a 4, porque sino, qplot da error
+#medias.total$Renta_Mixta <- lapply(medias.total$Renta_Mixta, round, 0)
+#medias.total$Poblacion1 <- lapply(medias.total$Poblacion1, round, 0)
 
 
