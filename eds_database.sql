@@ -4,6 +4,11 @@
 -- ------------------------------------------------------
 -- Server version	8.0.13
 
+
+DROP DATABASE IF EXISTS database_ong;
+CREATE DATABASE IF NOT EXISTS database_ong;
+USE database_ong;
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -29,7 +34,11 @@ CREATE TABLE `categoria` (
   UNIQUE KEY `nombreCategoria` (`nombre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
+  insert into categoria values (1, 'Bebida');
+  insert into categoria values (2, 'Alimentos');
+  insert into categoria values (3, 'Higiene');
+  insert into categoria values (4, 'Medicamentos');
+  insert into categoria values (5, 'MaterialEscolar');
 --
 -- Table structure for table `cesta`
 --
@@ -162,7 +171,8 @@ DROP TABLE IF EXISTS `producto`;
 CREATE TABLE `producto` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `categoria_id` tinyint(3) unsigned NOT NULL,
-  `nombre` varchar(15) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `tamaño`varchar(1) NOT NULL,
   `precio` float NOT NULL,
   `descripcion` varchar(80) DEFAULT NULL,
   `stock` int(11) NOT NULL,
@@ -171,6 +181,22 @@ CREATE TABLE `producto` (
   CONSTRAINT `usuario_idProductos` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+  insert into producto values (1, 1, 'Bebida S','S', 10.0, 'Lote pequeño de bebida que contiene: ', 10);
+  insert into producto values (2, 1, 'Bebida M','M', 15.0, 'Lote mediano de bebida que contiene: ', 30);
+  insert into producto values (3, 1, 'Bebida L','L', 20.0, 'Lote grande de bebida que contiene: ', 40);
+  insert into producto values (4, 2, 'Comida S','S', 10.0, 'Lote pequeño de comida que contiene: ', 20);
+  insert into producto values (5, 2, 'Comida M','M', 15.0, 'Lote mediano de comida que contiene: ', 20);
+  insert into producto values (6, 2, 'Comida L','L', 20.0, 'Lote grande de comida que contiene: ', 30);
+  insert into producto values (7, 3, 'Higiene S','S', 10.0, 'Lote pequeño de higiene que contiene: ', 40);
+  insert into producto values (8, 3, 'Higiene M','M', 15.0, 'Lote mediano de higiene que contiene: ', 90);
+  insert into producto values (9, 3, 'Higiene L','L', 20.0, 'Lote grande de higiene que contiene: ', 40);
+  insert into producto values (10, 4, 'Medicamentos S','S', 10.0, 'Lote pequeño de medicamentos que contiene: ', 20);
+  insert into producto values (11, 4, 'Medicamentos M','M', 10.0, 'Lote mediano de medicamentos que contiene: ', 40);
+  insert into producto values (12, 4, 'Medicamentos L','L', 10.0, 'Lote grande de medicamentos que contiene: ', 10);
+  insert into producto values (13, 5, 'Material escolar S','S', 10.0, 'Lote pequeño de material escolar que contiene: ', 20);
+  insert into producto values (14, 5, 'Material escolar M','M', 10.0, 'Lote mediano de material escolar que contiene: ', 40);
+  insert into producto values (15, 5, 'Material escolar L','L', 10.0, 'Lote grande de material escolar que contiene: ', 30);
 
 --
 -- Table structure for table `producto_cesta`
@@ -203,7 +229,7 @@ CREATE TABLE `role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
+insert into role values(1, 'Donante');
 --
 -- Table structure for table `user`
 --
@@ -219,14 +245,15 @@ CREATE TABLE `user` (
   `last_name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `direccion` varchar(45) NOT NULL,
-  `donante` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+insert into user values (1, 'root', 'root', 'Elena', 'Larreategi', 'elena.larreategui@alumni.mondragon.edu', 'Elgoibar')
 
 --
 -- Table structure for table `users_roles`
 --
+
 
 DROP TABLE IF EXISTS `users_roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -241,7 +268,7 @@ CREATE TABLE `users_roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
+insert into users_roles values (1,1);
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
