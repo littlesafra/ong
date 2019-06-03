@@ -12,7 +12,7 @@ insert into necesidad_destino values (5, "Llanada Alavesa",0, 30);
 
 insert into necesidad_destino values (1, "Montana Alavesa",0, 10);
 insert into necesidad_destino values (2, "Montana Alavesa",0, 20);
-insert into necesidad_destino values (3, "Montada Alavesa",0, 30);
+insert into necesidad_destino values (3, "Montana Alavesa",0, 30);
 insert into necesidad_destino values (4, "Montana Alavesa",0, 25);
 insert into necesidad_destino values (5, "Montana Alavesa",0, 15);
 

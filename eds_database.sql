@@ -63,7 +63,7 @@ DROP TABLE IF EXISTS `destino`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `destino` (
-  `poblacion` varchar(30) NOT NULL,
+  `poblacion` varchar(40) NOT NULL,
   `direccion` varchar(30),
   PRIMARY KEY (`poblacion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -150,7 +150,7 @@ DROP TABLE IF EXISTS `necesidad_destino`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `necesidad_destino` (
   `tipo` tinyint(3) unsigned NOT NULL,
-  `destino` varchar(15) NOT NULL,
+  `destino` varchar(40) NOT NULL,
   `cantidad_asignada` int(11) NOT NULL,
   `porcentaje_necesidad` int(11) NOT NULL,
   KEY `tipoNecesidades_destino` (`tipo`),
