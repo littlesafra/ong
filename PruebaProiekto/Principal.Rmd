@@ -28,42 +28,16 @@ plot(pressure)
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
 #conexion base de datos
-install.packages("RMySQL")
+#install.packages("RMySQL")
 library(DBI)
-con <- dbConnect(RMySQL::MySQL(), user="root", host="localhost", password="", dbname="ikasbi")
+con <- dbConnect(RMySQL::MySQL(), user="root", host="localhost", password="password", dbname="database_ong")
 
-#Paste0 para eliminar separacion // tener en cuenta los datos que se introducen
+#Paste0 para eliminar separacion // tener en cuenta los datos que se introducen 
 myQuery <- myQuery <- paste0("INSERT INTO bazkideak (Izena) VALUES ('", data,"')")
 dbSendQuery(con,myQuery)
-
-install.packages("readxl")
-library("readxl")
-
-envios_data <- read_excel("/Users/Elena/Desktop/datos1.xls")
-mancomunidades_data <- read.csv("/Users/Elena/Desktop/Proyecto.csv", head=TRUE)
-mancomunidades_scaled <- scale(mancomunidades_data)
-
-
-
-library(mlbench)
-summary_habitantes <- habitantes_data
-summary_envios <- envios_data
-
 library(D)
 library(RMySQL)
 mydb = dbConnect(MySQL(), user="root", host="localhost", password="password", dbname="database_ong")
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -72,7 +46,21 @@ remove(list = ls())
 
 #leer fichero
 library("readxl")
-data <- read_excel("/Users/Elena/Desktop/dataSetComarcas.xls")
+data <- read_excel("/Users/Elena/Desktop/DataSetComarcas.xls")
+
+
+#Eliminar caracteres raros
+for(i in 1:nrow(data)){
+  print(i, nrow(data))
+  data[i,1] <- chartr('áéíóúñ','aeioun', data[i,1])
+  print(data[i,1])
+}
+
+#Insertar comarcas
+for(i in 1:nrow(data)){
+  myQuery <- myQuery <- paste0("INSERT INTO destino (poblacion) VALUES ('", data[i,1],"')")
+  dbSendQuery(con,myQuery)
+}
 
 #Escalar datos(valor neutro)
 data.scale <- scale(data[,2:7])
@@ -96,16 +84,16 @@ Poblacion_total <- sum(data$Poblacion)
 #Utilizando For
 
 for(i in 1:5){
-
+  
   Poblacion <- sum(data$Poblacion[data$Cluster == i])
   Inmigracion <- sum(data$Inmigracion[data$Cluster == i])
-  Tasa_paro <- mean(data$Tasa_Paro[data$Cluster == i])
+  Tasa_paro <- mean(data$Tasa_paro[data$Cluster == i])
   Renta_Personal <- mean(data$Renta_Personal[data$Cluster == i])
   Renta_Familiar <- mean(data$Renta_Familiar[data$Cluster == i])
   Renta_Mixta <- (Renta_Personal/Renta_Familiar * 100)
   porcentajePoblacion <- porcentajePoblacion <- Poblacion * 100 / Poblacion_total
   Cluster <- i
-
+  
     if(i == 1)g1 <- data.frame(cbind(Poblacion,Inmigracion,Tasa_paro,Renta_Personal,Renta_Familiar,Renta_Mixta,porcentajePoblacion,Cluster))
     else if(i == 2)g2 <- data.frame(cbind(Poblacion,Inmigracion,Tasa_paro,Renta_Personal,Renta_Familiar,Renta_Mixta,porcentajePoblacion,Cluster))
     else if(i == 3)g3 <- data.frame(cbind(Poblacion,Inmigracion,Tasa_paro,Renta_Personal,Renta_Familiar,Renta_Mixta,porcentajePoblacion,Cluster))
@@ -114,6 +102,7 @@ for(i in 1:5){
 }
 
 medias_total <- data.frame(rbind(as.matrix(g1),as.matrix(g2),as.matrix(g3),as.matrix(g4),as.matrix(g5)))
+
 
 
 #Mostramos un grafico XY con la poblacion por
@@ -126,79 +115,47 @@ plot(medias_total$porcentajePoblacion,medias_total$Renta_Mixta, ylab="% Renta Mi
 
  Renta_Cuadrante <- (max(medias_total$Renta_Mixta) + min(medias_total$Renta_Mixta))/2
  Poblacion_Cuadrante <- (max(medias_total$porcentajePoblacion) + min(medias_total$porcentajePoblacion))/2
-
+  
 for(i in 1:5){
-
+  
   Grupo <- i
   Renta_Mixta <- medias_total$Renta_Mixta[medias_total$Cluster == i]
   porcentajePoblacion <- medias_total$porcentajePoblacion[medias_total$Cluster == i]
   Porcentaje_Recursos <- 0
   Distancia <- 0
-
+    
     if(Renta_Mixta >= Renta_Cuadrante && porcentajePoblacion < Poblacion_Cuadrante){
-
+  
       Cuadrante <- as.numeric(1)
       Importancia <- as.numeric(5)
-
+    
     }else if(Renta_Mixta >= Renta_Cuadrante && porcentajePoblacion >= Poblacion_Cuadrante){
-
-<<<<<<< HEAD
-    if(Renta_Mixta >= Renta_Cuadrante && porcentajePoblacion < Poblacion_Cuadrante){
-      Cuadrante <- 1
-      Importancia <- 5
-      }
-    else if(Renta_Mixta >= Renta_Cuadrante && porcentajePoblacion >= Poblacion_Cuadrante){
-      Cuadrante <- 2
-      Importancia <- 20
-
-    }
-    else if(Renta_Mixta < Renta_Cuadrante && porcentajePoblacion < Poblacion_Cuadrante){
-      Cuadrante <- 3
-      Importancia <- 30
-    }
-    else {
-      Cuadrante <- 4
-      Importancia <- 45
-    }
-    if(i == 1)g1 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante,as.numeric(Importancia))
-    else if(i == 2)g2 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante, as.numeric(Importancia))
-    else if(i == 3)g3 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante, as.numeric(Importancia))
-    else if(i == 4)g4 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante, as.numeric(Importancia))
-    else g5 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Cuadrante, Importancia, as.numeric(Importancia)))
-
+    
       Cuadrante <- as.numeric(2)
       Importancia <- as.numeric(20)
-
+    
     }else if(Renta_Mixta < Renta_Cuadrante && porcentajePoblacion < Poblacion_Cuadrante){
-
+    
       Cuadrante <- as.numeric(3)
       Importancia <- as.numeric(30)
-
+    
     }else{
-
+    
       Cuadrante <- as.numeric(4)
       Importancia <- as.numeric(45)
-
-    }
-
+    
+    } 
+    
     if(i == 1)t1 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Importancia,Cuadrante,Porcentaje_Recursos,Distancia))
     else if(i == 2)t2 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Importancia,Cuadrante,Porcentaje_Recursos,Distancia))
     else if(i == 3)t3 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Importancia,Cuadrante,Porcentaje_Recursos,Distancia))
     else if(i == 4)t4 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Importancia,Cuadrante,Porcentaje_Recursos,Distancia))
     else t5 <- data.frame(cbind(Grupo,Renta_Mixta,porcentajePoblacion,Importancia,Cuadrante,Porcentaje_Recursos,Distancia))
-
->>>>>>> 6a7f1eae2da34324433e92685b1f1938012cec94
+  
 }
 
 Tabla_Cuadrante <- data.frame(rbind(as.matrix(t1),as.matrix(t2),as.matrix(t3),as.matrix(t4),as.matrix(t5)))
 
-var <- 0
-for(i in 1:5){
-  print(Tabla_Cuadrante[i,5])
-
-}
-#var = var + Tabla_Cuadrante[i][4]
-print(sum(Tabla_Cuadrante$Importancia))
 #Para el calculo de las distancias
 Poblacion<- 0
 Inmigracion <- 0
@@ -209,12 +166,10 @@ Renta_Mixta <- 0
 porcentajePoblacion <- Poblacion * 100 / Poblacion_total
 Cluster <- 0
 g6 <- data.frame(cbind(Poblacion, Inmigracion, Tasa_paro, Renta_Personal, Renta_Familiar, Renta_Mixta,porcentajePoblacion,Cluster))
-
 medias_total <- data.frame(rbind(as.matrix(g1),as.matrix(g2),as.matrix(g3),as.matrix(g4),as.matrix(g5),as.matrix(g6)))
 
 #Borrar variables inecesarias
 remove(g1,g2,g3,g4,g5,g6,t1,t2,t3,t4,t5)
-
 Distancias_Totales <- dist(scale(medias_total))
 
 
@@ -261,7 +216,7 @@ for(i in 1:5){
       fila <- data.frame(Tabla_Cuadrante[i,])
       Grupo3<- rbind(Grupo3,fila)
     }
-
+  
   }else{
     if(cont4 == 0){
       Grupo4 <- Tabla_Cuadrante[i,]
@@ -271,7 +226,7 @@ for(i in 1:5){
       fila <- data.frame(Tabla_Cuadrante[i,])
       Grupo4 <- rbind(Grupo4,fila)
     }
-
+  
   }
 }
 
@@ -289,19 +244,44 @@ for(i in 1:5){
   if(Tabla_Cuadrante[i,5] == 4){
     for(j in 1:3){
       if(Tabla_Cuadrante[i,7] > Grupo4[j,7]){
-
+      
         Tabla_Cuadrante[i,6] <- Tabla_Cuadrante[i,6] - (Tabla_Cuadrante[i,7] - Grupo4[j,7])*5
-
+      
       }else{
-
+        
         Tabla_Cuadrante[i,6] <- Tabla_Cuadrante[i,6] + (Grupo4[j,7] - Tabla_Cuadrante[i,7])*5
-
+        
       }
     }
   }
 }
+  Necesidades_Destino$Cluster <- 0
 
 
+#Leer necesidades por destino
+  myQuery <- myQuery <- paste0("SELECT * FROM  necesidad_destino where categoria_id = '",i,"';")
+  Necesidades_Destino <-dbGetQuery(con,myQuery)
+  Necesidades <- 0
+  for(tipo in 1:5){
+    myQuery <- paste0("select porcentaje_necesidad necesidad from necesidad_destino where tipo='",i,"';")
+    Necesidades[tipo] <- dbGetQuery(con,myQuery)
+  }
+  for(i in 1:nrow(Necesidades_Destino)){
+    for(j in 1:nrow(data)){
+      if(Necesidades_Destino[i,2] == data[j,1]){
+        Necesidades_Destino[i, 5] <- data[j, 8]
+      }
+    }
+  }
+
+#Asignacion de paquetes por cluster
+  for(i in 1:5){
+    myQuery <- myQuery <- paste0("Select sum(stock) from producto where categoria_id = '",i,"';")
+    print(myQuery)
+    total[i] <-  as.numeric(dbGetQuery(con,myQuery))
+  }
+  
+  
 
 
 #Redondeamos los decimales a 4, porque sino, qplot da error
@@ -309,4 +289,3 @@ for(i in 1:5){
 #medias.total$Poblacion1 <- lapply(medias.total$Poblacion1, round, 0)
 
 
-total.importancias <- sum(Tabla_Cuadrante$)
