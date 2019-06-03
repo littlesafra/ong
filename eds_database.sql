@@ -63,10 +63,9 @@ DROP TABLE IF EXISTS `destino`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `destino` (
-  `cp` varchar(15) NOT NULL,
-  `poblacion` varchar(15) NOT NULL,
-  `direccion` varchar(30) NOT NULL,
-  PRIMARY KEY (`cp`)
+  `poblacion` varchar(30) NOT NULL,
+  `direccion` varchar(30),
+  PRIMARY KEY (`poblacion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -152,11 +151,11 @@ DROP TABLE IF EXISTS `necesidad_destino`;
 CREATE TABLE `necesidad_destino` (
   `tipo` tinyint(3) unsigned NOT NULL,
   `destino` varchar(15) NOT NULL,
-  `porcentaje_cantidad` int(11) NOT NULL,
+  `cantidad_asignada` int(11) NOT NULL,
   `porcentaje_necesidad` int(11) NOT NULL,
   KEY `tipoNecesidades_destino` (`tipo`),
   KEY `destinoNecesidades_destino` (`destino`),
-  CONSTRAINT `destinoNecesidades_destino` FOREIGN KEY (`destino`) REFERENCES `destino` (`cp`),
+  CONSTRAINT `destinoNecesidades_destino` FOREIGN KEY (`destino`) REFERENCES `destino` (`poblacion`),
   CONSTRAINT `tipoNecesidades_destino` FOREIGN KEY (`tipo`) REFERENCES `categoria` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
