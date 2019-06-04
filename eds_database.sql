@@ -159,7 +159,7 @@ CREATE TABLE `necesidad_destino` (
   CONSTRAINT `tipoNecesidades_destino` FOREIGN KEY (`tipo`) REFERENCES `categoria` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
+insert into necesidad_destino values (tipo, destino, dantidad_asignada, necesidades_destino)
 --
 -- Table structure for table `producto`
 --
