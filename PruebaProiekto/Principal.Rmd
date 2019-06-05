@@ -39,7 +39,7 @@ con <- dbConnect(RMySQL::MySQL(), user="root", host="localhost", password="passw
 
 #leer fichero
 library("readxl")
-data <- read_excel("/Users/Elena/Desktop/DataSetComarcas.xls")
+data <- read_excel("/Users/ACER/Desktop/DataSetComarcas.xls")
 
 
 #Eliminar caracteres raros
