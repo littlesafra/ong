@@ -52,7 +52,7 @@ data <- read_excel("/Users/Elena/Desktop/DataSetComarcas.xls")
 #Eliminar caracteres raros
 for(i in 1:nrow(data)){
   print(i, nrow(data))
-  data[i,1] <- chartr('Ã¡Ã©Ã­Ã³ÃºÃ±','aeioun', data[i,1])
+  data[i,1] <- chartr('áéíóúñ','aeioun', data[i,1])
   print(data[i,1])
 }
 
