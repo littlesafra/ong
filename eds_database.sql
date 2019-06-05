@@ -115,10 +115,10 @@ DROP TABLE IF EXISTS `envio`;
 CREATE TABLE `envio` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `fecha_entrega` date NOT NULL,
-  `destino` varchar(15) NOT NULL,
+  `poblacion` varchar(40) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `destino_envios` (`destino`),
-  CONSTRAINT `destino_envio` FOREIGN KEY (`destino`) REFERENCES `destino` (`cp`)
+  KEY `destino_envios` (`poblacion`),
+  CONSTRAINT `destino_envio` FOREIGN KEY (`poblacion`) REFERENCES `destino` (`poblacion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
