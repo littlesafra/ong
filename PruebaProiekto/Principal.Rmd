@@ -1,59 +1,25 @@
----
-title: "Proba"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
-
-
 #borrar variables de entorno
+dbDisconnect(con)
 remove(list = ls())
 
 #conexion base de datos
 #install.packages("RMySQL")
 library(DBI)
-con <- dbConnect(RMySQL::MySQL(), user="root", host="localhost", password="password", dbname="database_ong")
+con <- dbConnect(RMySQL::MySQL(), user="root", host="localhost", password="", dbname="database_ong")
+
 
 #leer fichero
 library("readxl")
 data <- read_excel("/Users/ACER/Desktop/DataSetComarcas.xls")
-
+data <- data[with(data, order(data$Ambitos_Territoriales)), ] 
 
 #Eliminar caracteres raros
 for(i in 1:nrow(data)){
   print(i, nrow(data))
   data[i,1] <- chartr('áéíóúñ','aeioun', data[i,1])
-  print(data[i,1])
 }
 
-#Insertar comarcas
-for(i in 1:nrow(data)){
-  myQuery <- paste0("INSERT INTO destino (poblacion) VALUES ('", data[i,1],"')")
-  dbSendQuery(con,myQuery)
-}
+
 
 #Escalar datos(valor neutro)
 data.scale <- scale(data[,2:7])
@@ -226,6 +192,7 @@ for(i in 1:5){
 #Borrar variaables inecesarias
 remove(fila,cont1,cont2,cont3,cont4,i,Cluster,Cuadrante,Distancia,Distancias_Totales,Grupo,Importancia,Inmigracion,Poblacion,Poblacion_Cuadrante,Porcentaje_Recursos,Renta_Cuadrante,Renta_Familiar,Renta_Mixta,Renta_Personal,Tasa_paro,Poblacion_total,porcentajePoblacion)
 
+#calculo porcentaje de recursos
 Importancia_Total <- sum(Tabla_Cuadrante$Importancia)
 
 for(i in 1:5){
@@ -248,12 +215,10 @@ for(i in 1:5){
   }
 }
 
-
 #Tabla de necesidades por destino
   Necesidades_Destino <- data[,1]
   for(tipo in 1:5){
-    print(tipo)
-    myQuery <- paste0("select porcentaje_necesidad '",tipo,"' from necesidad_destino where tipo='",tipo,"';")
+    myQuery <- paste0("select porcentaje_necesidad '",tipo,"' from necesidad_sucursal where categoria_id='",tipo,"';")
     dbGetQuery(con,myQuery)
     Necesidades_Destino <- cbind(Necesidades_Destino, dbGetQuery(con,myQuery))
    }
@@ -261,12 +226,14 @@ for(i in 1:5){
 #AÃ±adimos los cluster a la tabla
   Necesidades_Destino$Cluster <- data$Cluster
     
-#Totales de recursos por categorÃ­a
+#Totales de recursos por categorÃ???a
   total.recurso = array()
   for(i in 1:5){
     myQuery <- paste0("Select sum(stock) from producto where categoria_id = '",i,"';")
     print(myQuery)
-    total.recurso[i] <-  dbGetQuery(con,myQuery)
+    recurso <- as.numeric(dbGetQuery(con,myQuery))
+    a <- recurso * 0.95
+    total.recurso[i] <-  lapply(a, round,0)
   }
 
 #Recursos a cada cluster
@@ -300,36 +267,53 @@ for(cluster in 1:5){
 
 
 Asignacion_Destino <- Necesidades_Destino
+myQuery <- "select max(id) from envio;"
+maximo <- dbGetQuery(con,myQuery)
+
 for(col in 1:5){
   for(row in 1:20){
+  
     cluster <- Necesidades_Destino[row, 7]
     
        necesidadDestino<-as.numeric(Necesidades_Destino[row, col+1])
-       print(necesidadDestino<-as.numeric(Necesidades_Destino[row, col+1]))
        
        necesidadTotal<-as.numeric(total.necesidad.cluster[cluster, col])
-       print(necesidadTotal<-as.numeric(total.necesidad.cluster[cluster, col]))
-
+      
        recursoTotal<-as.numeric(total.recursos.cluster[cluster,col])
-       print(recursoTotal<-as.numeric(total.recursos.cluster[cluster,col]))
+    
 
-        eragiketa <- necesidadDestino*recursoTotal
+       eragiketa <- necesidadDestino*recursoTotal
        eragiketa<-as.numeric(necesidadDestino*recursoTotal/necesidadTotal)
        eragiketa<-  as.numeric(lapply(eragiketa, round,0))
        Asignacion_Destino[row, col+1] <-  eragiketa
+       
+       if(col == 1){
+        myQuery <- paste0("insert into envio (fecha,sucursal) values('",Sys.Date(),"','",Asignacion_Destino[row,1],"');")
+        dbSendQuery(con,myQuery)
+       }
+      
+       if(is.na(maximo$`max(id)`)){
+          maximo$`max(id)` <- 0
+          myQuery <- paste0("insert into envio_detalles(envio_id,producto_id,cantidad) values('",row,"','",col,"','",eragiketa,"');")
+          dbSendQuery(con,myQuery)
+          
+          myQuery <- paste0("select stock from producto where productoID = '",col,"';")
+          stock <- dbGetQuery(con,myQuery)
+          stock <- stock - eragiketa
+          myQuery <- paste0("update producto set stock = '",stock,"' where productoID = '",col,"';")
+          dbSendQuery(con,myQuery)
+          
+        }else{
+        
+          myQuery <- paste0("insert into envio_detalles(envio_id,producto_id,cantidad) values('",(maximo$`max(id)`+ row),"','",col,"','",eragiketa,"');")
+          dbSendQuery(con,myQuery)
+          
+          myQuery <- paste0("select stock from producto where productoID = '",col,"';")
+          stock <- dbGetQuery(con,myQuery)
+          stock <- stock - eragiketa
+          myQuery <- paste0("update producto set stock = '",stock,"' where productoID = '",col,"';")
+          dbSendQuery(con,myQuery)
+        }
   }
 }
   
-    
-  
-
-
-
-  
-
-
-#Redondeamos los decimales a 4, porque sino, qplot da error
-#medias.total$Renta_Mixta <- lapply(medias.total$Renta_Mixta, round, 0)
-#medias.total$Poblacion1 <- lapply(medias.total$Poblacion1, round, 0)
-
-
