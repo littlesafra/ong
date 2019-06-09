@@ -21,14 +21,14 @@ CREATE TABLE `role` (
 CREATE TABLE `users_roles` (
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
-  
+
    INDEX `FK_USER_X` (`user_id` ASC) ,
 	CONSTRAINT `FK_USER`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    
+
     INDEX `FK_ROLE_X` (`role_id` ASC) ,
   CONSTRAINT `FK_ROLE`
     FOREIGN KEY (`role_id`)
@@ -37,26 +37,26 @@ CREATE TABLE `users_roles` (
     ON UPDATE NO ACTION
 ) ENGINE=InnoDB;
 
-INSERT INTO `role` (name) 
-	VALUES 
+INSERT INTO `role` (name)
+	VALUES
 		('ROLE_EMPLOYEE'),('ROLE_MANAGER'),('ROLE_ADMIN');
 
 INSERT INTO `user` (username,password,first_name,last_name,email)
-VALUES 
+VALUES
 ('john','$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K','John','Doe','john@luv2code.com'),
 ('mary','$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K','Mary','Public','mary@luv2code.com'),
 ('susan','$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K','Susan','Adams','susan@luv2code.com');
 
-	
-INSERT INTO `users_roles` (user_id,role_id) 
-VALUES 
+
+INSERT INTO `users_roles` (user_id,role_id)
+VALUES
 	(1, 1),
 	(2, 1),
 	(2, 2),
 	(3, 1),
 	(3, 3);
-	
-	
+
+
 CREATE TABLE `categoria` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(15) NOT NULL,
@@ -69,7 +69,7 @@ CREATE TABLE `categoria` (
   insert into categoria values (3, 'Higiene');
   insert into categoria values (4, 'Medicamentos');
   insert into categoria values (5, 'MaterialEscolar');
-  
+
   CREATE TABLE `cesta` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `usuario_id` int(11) NOT NULL,
@@ -151,14 +151,14 @@ CREATE TABLE `producto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
-insert into producto values (1, 1, 'Bebida', 5.0, 'Lote pequeño de bebida que contiene: ', 0);
-insert into producto values (2, 2, 'Comida', 5.0, 'Lote pequeño de comida que contiene: ', 0);
-  insert into producto values (3, 3, 'Higiene', 5.0, 'Lote pequeño de higiene que contiene: ', 0);
-  insert into producto values (4, 4, 'Medicamentos', 5.0, 'Lote pequeño de medicamentos que contiene: ', 0);
-  insert into producto values (5, 5, 'Material escolar', 5.0, 'Lote pequeño de material escolar que contiene: ', 0);
-  
-  
-  
+'Bebida', 5.0, '<ul><li>15L Agua</li><li></li><li>5L Bebida isitónica</li><li>3L Zumo</li></ul></ul>', 0);
+insert into producto values (2, 2, 'Comida', 5.0, '<ul><li>2KG Arroz</li><li>2KG Legumbres</li><li>1L Aceite de Oliva</li></ul>', 0);
+insert into producto values (3, 3, 'Higiene', 5.0, '<ul><i>300 compresas</li><li>100 pañales</li><li>100L Jabón</li></ul>',, 0);
+insert into producto values (4, 4, 'Medicamentos', 5.0, '<ul><i>P</li><li>100 Ibuprofenos(300mg)</li><li>Diazepan(5mg)</li>50L Alcohol</ul>', 0);
+insert into producto values (5, 5, 'Material escolar', 5.0, '<ul><i>P</li><li>200 Lápices y borragomas</li><li>50 Cuadernos</li>50 Bolígrafos</ul>', 0);
+
+
+
   CREATE TABLE `producto_cesta` (
   `cesta_id` int(11) unsigned NOT NULL,
   `producto_id` int(11) unsigned NOT NULL,
@@ -168,4 +168,3 @@ insert into producto values (2, 2, 'Comida', 5.0, 'Lote pequeño de comida que c
   CONSTRAINT `id_cestaProductos_cestas` FOREIGN KEY (`cesta_id`) REFERENCES `cesta` (`id`),
   CONSTRAINT `id_productoProductos_cestas` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
