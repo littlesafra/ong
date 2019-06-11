@@ -12,15 +12,11 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 );
 
-
-
 CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
-
-
 
 CREATE TABLE `users_roles` (
   `user_id` int(11) NOT NULL,
@@ -41,24 +37,6 @@ CREATE TABLE `users_roles` (
     ON UPDATE NO ACTION
 );
 
-INSERT INTO `role` (name) VALUES ('ROLE_EMPLOYEE'),('ROLE_MANAGER'),('ROLE_ADMIN');
-
-INSERT INTO `user` (username,password,first_name,last_name,email)
-VALUES
-('john','$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K','John','Doe','john@luv2code.com'),
-('mary','$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K','Mary','Public','mary@luv2code.com'),
-('susan','$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K','Susan','Adams','susan@luv2code.com');
-
-
-INSERT INTO `users_roles` (user_id,role_id)
-VALUES
-	(1, 1),
-	(2, 1),
-	(2, 2),
-	(3, 1),
-	(3, 3);
-
-
 CREATE TABLE `categoria` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(15) NOT NULL,
@@ -66,13 +44,7 @@ CREATE TABLE `categoria` (
   UNIQUE KEY `nombreCategoria` (`nombre`)
 );
 
-  insert into categoria values (1, 'Bebida');
-  insert into categoria values (2, 'Alimentos');
-  insert into categoria values (3, 'Higiene');
-  insert into categoria values (4, 'Medicamentos');
-  insert into categoria values (5, 'MaterialEscolar');
-
-  CREATE TABLE `cesta` (
+CREATE TABLE `cesta` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -80,12 +52,10 @@ CREATE TABLE `categoria` (
   CONSTRAINT `usuario_idCestas` FOREIGN KEY (`usuario_id`) REFERENCES `user` (`id`)
 );
 
-
 CREATE TABLE `sucursal` (
   `comarca` varchar(30)  NOT NULL,
   PRIMARY KEY (`comarca`)
 );
-
 
 CREATE TABLE `donacion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -96,8 +66,6 @@ CREATE TABLE `donacion` (
   CONSTRAINT `usuario_idDonaciones` FOREIGN KEY (`usuario_id`) REFERENCES `user` (`id`)
 );
 
-
-
 CREATE TABLE `envio` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fecha` date NOT NULL,
@@ -107,19 +75,15 @@ CREATE TABLE `envio` (
   CONSTRAINT `destino_envio` FOREIGN KEY (`sucursal`) REFERENCES `sucursal` (`comarca`)
 );
 
-
-
-
 CREATE TABLE `necesidad_sucursal` (
   `categoria_id` int(11) unsigned NOT NULL,
-`sucursal` varchar(30)  NOT NULL,
+  `sucursal` varchar(30)  NOT NULL,
   `porcentaje_necesidad` int(11) NOT NULL,
   KEY `tipoNecesidades_destino` (`categoria_id`),
   KEY `destinoNecesidades_destino` (`sucursal`),
   CONSTRAINT `destinoNecesidades_destino` FOREIGN KEY (`sucursal`) REFERENCES `sucursal` (`comarca`),
   CONSTRAINT `tipoNecesidades_destino` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`)
 );
-
 
 CREATE TABLE `producto` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -132,14 +96,6 @@ CREATE TABLE `producto` (
   KEY `categoria_idProductos` (`categoria_id`),
   CONSTRAINT `usuario_idProductos` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`)
 );
-
-
-insert into producto values (1, 1, 'Bebida', 5.0, '<ul><li>15L Agua</li><li>5L Bebida isitónica</li><li>3L Zumo</li></ul>', 0);
-insert into producto values (2, 2, 'Comida', 5.0, '<ul><li>2KG Arroz</li><li>2KG Legumbres</li><li>1L Aceite de Oliva</li></ul>', 0);
-insert into producto values (3, 3, 'Higiene', 5.0, '<ul><li>300 compresas</li><li>100 pañales</li><li>100L Jabón</li></ul>', 0);
-insert into producto values (4, 4, 'Medicamentos', 5.0, '<ul><li>100 Ibuprofenos(300mg)</li><li>Diazepan(5mg)</li><li>50L Alcohol</li></ul>', 0);
-insert into producto values (5, 5, 'Material escolar', 5.0, '<ul><li>200 Lápices y borragomas</li><li>50 Cuadernos</li><li>50 Bolígrafos</li></ul>', 0);
-
 
   CREATE TABLE `envio_detalles` (
     `envio_id` int(11) unsigned NOT NULL,
@@ -160,6 +116,7 @@ insert into producto values (5, 5, 'Material escolar', 5.0, '<ul><li>200 Lápice
   CONSTRAINT `id_cestaProductos_cestas` FOREIGN KEY (`cesta_id`) REFERENCES `cesta` (`id`),
   CONSTRAINT `id_productoProductos_cestas` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`)
 );
+
 CREATE TABLE `donaciones_detalles` (
   `donacion_id` int(11) NOT NULL,
   `producto_id` int(11) unsigned NOT NULL,
@@ -174,11 +131,5 @@ CREATE TABLE `donaciones_detalles` (
 CREATE TABLE realizar_reparto (
   id int(11) NOT NULL,
   reparto boolean,
-  PRIMARY KEY(repartoID));
-
-insert into realizar_reparto values (1, false);
-insert into cesta values (1, 3);
-insert into producto_cesta values (1, 1, 1);
-
-insert into donacion values (1, 3, '2000-11-06');
-insert into donaciones_detalles values (1, 1, 2);
+  PRIMARY KEY(id)
+);

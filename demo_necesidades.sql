@@ -1,14 +1,21 @@
+
+insert into categoria values (1, 'Bebida');
+insert into categoria values (2, 'Alimentos');
+insert into categoria values (3, 'Higiene');
+insert into categoria values (4, 'Medicamentos');
+insert into categoria values (5, 'MaterialEscolar');
+
 INSERT INTO role (name) VALUES ('ROLE_EMPLOYEE'),('ROLE_MANAGER'),('ROLE_ADMIN');
 
 INSERT INTO user (username,password,first_name,last_name,email)
-VALUES 
+VALUES
 ('john','$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K','John','Doe','john@luv2code.com'),
 ('mary','$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K','Mary','Public','mary@luv2code.com'),
 ('susan','$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K','Susan','Adams','susan@luv2code.com');
 
-	
-INSERT INTO users_roles (user_id,role_id) 
-VALUES 
+
+INSERT INTO users_roles (user_id,role_id)
+VALUES
 	(1, 1),
 	(2, 1),
 	(2, 2),
@@ -18,19 +25,22 @@ VALUES
 
 
 
+	insert into producto values (1, 1, 'Bebida', 5.0, '<ul><li>15L Agua</li><li>5L Bebida isitónica</li><li>3L Zumo</li></ul>', 0);
+	insert into producto values (2, 2, 'Comida', 5.0, '<ul><li>2KG Arroz</li><li>2KG Legumbres</li><li>1L Aceite de Oliva</li></ul>', 0);
+	insert into producto values (3, 3, 'Higiene', 5.0, '<ul><li>300 compresas</li><li>100 pañales</li><li>100L Jabón</li></ul>', 0);
+	insert into producto values (4, 4, 'Medicamentos', 5.0, '<ul><li>100 Ibuprofenos(300mg)</li><li>Diazepan(5mg)</li><li>50L Alcohol</li></ul>', 0);
+	insert into producto values (5, 5, 'Material escolar', 5.0, '<ul><li>200 Lápices y borragomas</li><li>50 Cuadernos</li><li>50 Bolígrafos</li></ul>', 0);
 
-insert into categoria values (1, 'Bebida');
-insert into categoria values (2, 'Alimentos');
-insert into categoria values (3, 'Higiene');
-insert into categoria values (4, 'Medicamentos');
-insert into categoria values (5, 'MaterialEscolar');
 
 
-insert into producto values (1, 1, 'Bebida', 10.0, 'Lote pequeño de bebida que contiene: ', 80);
-insert into producto values (2, 2, 'Comida', 10.0, 'Lote pequeño de comida que contiene: ', 70);
-insert into producto values (3, 3, 'Higiene', 10.0, 'Lote pequeño de higiene que contiene: ', 170);
-insert into producto values (4, 4, 'Medicamentos', 10.0, 'Lote pequeño de medicamentos que contiene: ', 80);
-insert into producto values (5, 5, 'Material escolar', 10.0, 'Lote pequeño de material escolar que contiene: ', 90);
+		insert into cesta values (1, 3);
+		insert into producto_cesta values (1, 1, 1);
+
+
+		insert into donacion values (1, 3, '2000-11-06');
+		insert into donaciones_detalles values (1, 1, 2);
+
+
 
 
 insert into sucursal values ("Valles Alaveses");
