@@ -86,7 +86,7 @@ CREATE TABLE `sucursal` (
 
 
 CREATE TABLE `donacion` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuario_id` int(11) NOT NULL,
   `fecha` date NOT NULL,
   PRIMARY KEY (`id`),
@@ -143,7 +143,7 @@ CREATE TABLE `producto` (
   `categoria_id` int(11) unsigned NOT NULL,
   `nombre` varchar(20) NOT NULL,
   `precio` float NOT NULL,
-  `descripcion` varchar(80) DEFAULT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
   `stock` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `categoria_idProductos` (`categoria_id`),
@@ -151,11 +151,11 @@ CREATE TABLE `producto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
-'Bebida', 5.0, '<ul><li>15L Agua</li><li></li><li>5L Bebida isitónica</li><li>3L Zumo</li></ul></ul>', 0);
+insert into producto values (1, 1, 'Bebida', 5.0, '<ul><li>15L Agua</li><li>5L Bebida isitónica</li><li>3L Zumo</li></ul>', 0);
 insert into producto values (2, 2, 'Comida', 5.0, '<ul><li>2KG Arroz</li><li>2KG Legumbres</li><li>1L Aceite de Oliva</li></ul>', 0);
-insert into producto values (3, 3, 'Higiene', 5.0, '<ul><i>300 compresas</li><li>100 pañales</li><li>100L Jabón</li></ul>',, 0);
-insert into producto values (4, 4, 'Medicamentos', 5.0, '<ul><i>P</li><li>100 Ibuprofenos(300mg)</li><li>Diazepan(5mg)</li>50L Alcohol</ul>', 0);
-insert into producto values (5, 5, 'Material escolar', 5.0, '<ul><i>P</li><li>200 Lápices y borragomas</li><li>50 Cuadernos</li>50 Bolígrafos</ul>', 0);
+insert into producto values (3, 3, 'Higiene', 5.0, '<ul><li>300 compresas</li><li>100 pañales</li><li>100L Jabón</li></ul>',, 0);
+insert into producto values (4, 4, 'Medicamentos', 5.0, '<ul><li>100 Ibuprofenos(300mg)</li><li>Diazepan(5mg)</li><li>50L Alcohol</li></ul>', 0);
+insert into producto values (5, 5, 'Material escolar', 5.0, '<ul><li>200 Lápices y borragomas</li><li>50 Cuadernos</li><li>50 Bolígrafos</li></ul>', 0);
 
 
 
@@ -168,3 +168,11 @@ insert into producto values (5, 5, 'Material escolar', 5.0, '<ul><i>P</li><li>20
   CONSTRAINT `id_cestaProductos_cestas` FOREIGN KEY (`cesta_id`) REFERENCES `cesta` (`id`),
   CONSTRAINT `id_productoProductos_cestas` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+insert into cesta values (1, 3);
+insert into producto_cesta values (1, 1, 1);
+
+insert into donacion values (1, 3, '2000-11-06');
+insert into donaciones_detalles values (1, 1, 2);
+
