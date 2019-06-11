@@ -1,3 +1,7 @@
+DROP DATABASE IF EXISTS ONGDATABASE;
+CREATE DATABASE ONGDATABASE;
+USE ONGDATABASE;
+
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
@@ -6,7 +10,7 @@ CREATE TABLE `user` (
   `last_name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+);
 
 
 
@@ -14,7 +18,7 @@ CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1;
+);
 
 
 
@@ -35,11 +39,9 @@ CREATE TABLE `users_roles` (
     REFERENCES `role` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-) ENGINE=InnoDB;
+);
 
-INSERT INTO `role` (name)
-	VALUES
-		('ROLE_EMPLOYEE'),('ROLE_MANAGER'),('ROLE_ADMIN');
+INSERT INTO `role` (name) VALUES ('ROLE_EMPLOYEE'),('ROLE_MANAGER'),('ROLE_ADMIN');
 
 INSERT INTO `user` (username,password,first_name,last_name,email)
 VALUES
@@ -62,7 +64,7 @@ CREATE TABLE `categoria` (
   `nombre` varchar(15) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombreCategoria` (`nombre`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
   insert into categoria values (1, 'Bebida');
   insert into categoria values (2, 'Alimentos');
@@ -76,13 +78,13 @@ CREATE TABLE `categoria` (
   PRIMARY KEY (`id`),
   KEY `usuario_idCestas` (`usuario_id`),
   CONSTRAINT `usuario_idCestas` FOREIGN KEY (`usuario_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 
 CREATE TABLE `sucursal` (
   `comarca` varchar(30)  NOT NULL,
   PRIMARY KEY (`comarca`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 
 CREATE TABLE `donacion` (
@@ -92,18 +94,8 @@ CREATE TABLE `donacion` (
   PRIMARY KEY (`id`),
   KEY `usuario_idDonaciones` (`usuario_id`),
   CONSTRAINT `usuario_idDonaciones` FOREIGN KEY (`usuario_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
-
-CREATE TABLE `donaciones_detalles` (
-  `donacion_id` int(11) NOT NULL,
-  `producto_id` int(11) unsigned NOT NULL,
-  `cantidad` int(11) unsigned NOT NULL,
-  KEY `donacion_idDonaciones_detalles` (`donacion_id`),
-  KEY `producto_idDonaciones_detalles` (`producto_id`),
-  CONSTRAINT `donacion_idDonaciones_detalles` FOREIGN KEY (`donacion_id`) REFERENCES `donacion` (`id`),
-  CONSTRAINT `producto_idDonaciones_detalles` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 CREATE TABLE `envio` (
@@ -113,18 +105,9 @@ CREATE TABLE `envio` (
   PRIMARY KEY (`id`),
   KEY `destino_envios` (`sucursal`),
   CONSTRAINT `destino_envio` FOREIGN KEY (`sucursal`) REFERENCES `sucursal` (`comarca`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 
-CREATE TABLE `envio_detalles` (
-  `envio_id` int(11) unsigned NOT NULL,
-  `producto_id` int(11) unsigned NOT NULL,
-  `cantidad` int(11) unsigned NOT NULL,
-  KEY `envio_idEnvios_detalles` (`envio_id`),
-  KEY `producto_idEnvios_detalles` (`producto_id`),
-  CONSTRAINT `envio_idEnvios_detalles` FOREIGN KEY (`envio_id`) REFERENCES `envio` (`id`),
-  CONSTRAINT `producto_idEnvios_detalles` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 CREATE TABLE `necesidad_sucursal` (
@@ -135,7 +118,7 @@ CREATE TABLE `necesidad_sucursal` (
   KEY `destinoNecesidades_destino` (`sucursal`),
   CONSTRAINT `destinoNecesidades_destino` FOREIGN KEY (`sucursal`) REFERENCES `sucursal` (`comarca`),
   CONSTRAINT `tipoNecesidades_destino` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 
 CREATE TABLE `producto` (
@@ -148,16 +131,25 @@ CREATE TABLE `producto` (
   PRIMARY KEY (`id`),
   KEY `categoria_idProductos` (`categoria_id`),
   CONSTRAINT `usuario_idProductos` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 
 insert into producto values (1, 1, 'Bebida', 5.0, '<ul><li>15L Agua</li><li>5L Bebida isitónica</li><li>3L Zumo</li></ul>', 0);
 insert into producto values (2, 2, 'Comida', 5.0, '<ul><li>2KG Arroz</li><li>2KG Legumbres</li><li>1L Aceite de Oliva</li></ul>', 0);
-insert into producto values (3, 3, 'Higiene', 5.0, '<ul><li>300 compresas</li><li>100 pañales</li><li>100L Jabón</li></ul>',, 0);
+insert into producto values (3, 3, 'Higiene', 5.0, '<ul><li>300 compresas</li><li>100 pañales</li><li>100L Jabón</li></ul>', 0);
 insert into producto values (4, 4, 'Medicamentos', 5.0, '<ul><li>100 Ibuprofenos(300mg)</li><li>Diazepan(5mg)</li><li>50L Alcohol</li></ul>', 0);
 insert into producto values (5, 5, 'Material escolar', 5.0, '<ul><li>200 Lápices y borragomas</li><li>50 Cuadernos</li><li>50 Bolígrafos</li></ul>', 0);
 
 
+  CREATE TABLE `envio_detalles` (
+    `envio_id` int(11) unsigned NOT NULL,
+    `producto_id` int(11) unsigned NOT NULL,
+    `cantidad` int(11) unsigned NOT NULL,
+    KEY `envio_idEnvios_detalles` (`envio_id`),
+    KEY `producto_idEnvios_detalles` (`producto_id`),
+    CONSTRAINT `envio_idEnvios_detalles` FOREIGN KEY (`envio_id`) REFERENCES `envio` (`id`),
+    CONSTRAINT `producto_idEnvios_detalles` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`)
+  );
 
   CREATE TABLE `producto_cesta` (
   `cesta_id` int(11) unsigned NOT NULL,
@@ -167,12 +159,26 @@ insert into producto values (5, 5, 'Material escolar', 5.0, '<ul><li>200 Lápice
   KEY `id_productoProductos_cestas` (`producto_id`),
   CONSTRAINT `id_cestaProductos_cestas` FOREIGN KEY (`cesta_id`) REFERENCES `cesta` (`id`),
   CONSTRAINT `id_productoProductos_cestas` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
+CREATE TABLE `donaciones_detalles` (
+  `donacion_id` int(11) NOT NULL,
+  `producto_id` int(11) unsigned NOT NULL,
+  `cantidad` int(11) unsigned NOT NULL,
+  KEY `donacion_idDonaciones_detalles` (`donacion_id`),
+  KEY `producto_idDonaciones_detalles` (`producto_id`),
+  CONSTRAINT `donacion_idDonaciones_detalles` FOREIGN KEY (`donacion_id`) REFERENCES `donacion` (`id`),
+  CONSTRAINT `producto_idDonaciones_detalles` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`)
+);
 
 
+CREATE TABLE realizar_reparto (
+  id int(11) NOT NULL,
+  reparto boolean,
+  PRIMARY KEY(repartoID));
+
+insert into realizar_reparto values (1, false);
 insert into cesta values (1, 3);
 insert into producto_cesta values (1, 1, 1);
 
 insert into donacion values (1, 3, '2000-11-06');
 insert into donaciones_detalles values (1, 1, 2);
-
