@@ -174,7 +174,7 @@ CREATE TABLE `donaciones_detalles` (
 CREATE TABLE realizar_reparto (
   id int(11) NOT NULL,
   reparto boolean,
-  PRIMARY KEY(repartoID));
+  PRIMARY KEY(id));
 
 insert into realizar_reparto values (1, false);
 insert into cesta values (1, 3);
