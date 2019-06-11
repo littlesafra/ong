@@ -5,12 +5,12 @@ remove(list = ls())
 #conexion base de datos
 #install.packages("RMySQL")
 library(DBI)
-con <- dbConnect(RMySQL::MySQL(), user="root", host="3.212.217.185:3306", password="password", dbname="ONGDATABASE")
+con <- dbConnect(RMySQL::MySQL(), user="root", host="3.212.217.185", password="Password2019?", dbname="ONGDATABASE")
 
 
 #leer fichero
 library("readxl")
-data <- read_excel("/Users/ACER/Desktop/DataSetComarcas2016.xls")
+data <- read_excel("/Users/Elena/Desktop/dataSetComarcas.xls")
 data <- data[with(data, order(data$Ambitos_Territoriales)), ] 
 
 #Eliminar caracteres raros
