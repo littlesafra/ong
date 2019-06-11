@@ -131,5 +131,25 @@ CREATE TABLE `donaciones_detalles` (
 CREATE TABLE realizar_reparto (
   id int(11) NOT NULL,
   reparto boolean,
+<<<<<<< HEAD
   PRIMARY KEY(id)
 );
+||||||| merged common ancestors
+  PRIMARY KEY(repartoID));
+
+insert into realizar_reparto values (1, false);
+insert into cesta values (1, 3);
+insert into producto_cesta values (1, 1, 1);
+
+insert into donacion values (1, 3, '2000-11-06');
+insert into donaciones_detalles values (1, 1, 2);
+=======
+  PRIMARY KEY(id));
+
+insert into realizar_reparto values (1, false);
+insert into cesta values (1, 3);
+insert into producto_cesta values (1, 1, 1);
+
+insert into donacion values (1, 3, '2000-11-06');
+insert into donaciones_detalles values (1, 1, 2);
+>>>>>>> 32c81955422e3f93110e1d6c0b200281e0ffa792
