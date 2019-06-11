@@ -43,7 +43,7 @@ VALUES
 
 
 
-insert into sucursal values ("Valles Alaveses");
+insert into sucursal values ('Valles Alaveses');
 insert into sucursal values ("Llanada Alavesa");
 insert into sucursal values ("Montana Alavesa");
 insert into sucursal values ("Arratia-Nervion");
