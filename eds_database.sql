@@ -72,7 +72,7 @@ CREATE TABLE `envio` (
   `sucursal` varchar(30)  NOT NULL,
   PRIMARY KEY (`id`),
   KEY `destino_envios` (`sucursal`),
-  CONSTRAINT `destino_envio` FOREIGN KEY (`sucursal`) REFERENCES `sucursal` (`comarca`)
+  CONSTRAINT `destino_envios` FOREIGN KEY (`sucursal`) REFERENCES `sucursal` (`comarca`)
 );
 
 CREATE TABLE `necesidad_sucursal` (
